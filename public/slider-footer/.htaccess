@@ -1,0 +1,7 @@
+RewriteEngine On
+
+DirectoryIndex index.html
+<FilesMatch ".*\.(php|phtml|fLA|txt)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
