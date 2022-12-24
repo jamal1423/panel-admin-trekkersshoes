@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Voucher extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     protected $table = 'tbl_voucher';
     protected $primaryKey =  'id_voucher';
@@ -20,5 +21,6 @@ class Voucher extends Model
         'batas_pakai'
     ];
 
+    protected $guard_name = 'web';
     public $timestamps = false;
 }

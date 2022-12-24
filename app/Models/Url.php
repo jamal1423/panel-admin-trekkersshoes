@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Url extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     protected $table = 'tbl_url_sosmed';
     protected $primaryKey = 'id';

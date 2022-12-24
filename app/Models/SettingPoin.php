@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class SettingPoin extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
     protected $table = 'tbl_poin';
     protected $primaryKey = 'id_poin';
     protected $fillable = [
