@@ -28,65 +28,60 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/login', [LoginController::class, 'login_admin'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate_admin']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // ROLE ADMINISTRATOR
-// Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'role:Administrator'], function () {
-  Route::get('/', [DashboardController::class, 'halaman_dashboard']);
-  Route::get('/produk-all', [ProdukController::class, 'halaman_produk']);
-  Route::get('/produk-baru', [ProdukController::class, 'halaman_produk_baru']);
-  Route::get('/produk-populer', [ProdukController::class, 'halaman_produk_populer']);
+  // Route::get('/', [DashboardController::class, 'halaman_dashboard']);
+  // Route::get('/produk-all', [ProdukController::class, 'halaman_produk']);
+  // Route::get('/produk-baru', [ProdukController::class, 'halaman_produk_baru']);
+  // Route::get('/produk-populer', [ProdukController::class, 'halaman_produk_populer']);
   
-  Route::get('/produk/detail/{id}', [ProdukController::class, 'halaman_produk_detail']);
-  Route::patch('/produk-update', [ProdukController::class, 'halaman_produk_update']);
+  // Route::get('/produk/detail/{id}', [ProdukController::class, 'halaman_produk_detail']);
+  // Route::patch('/produk-update', [ProdukController::class, 'halaman_produk_update']);
 
   // RESELLER
-  Route::get('/transaksi-baru', [TransaksiResellerController::class, 'transaksi_reseller_baru']);
-  Route::get('/transaksi-baru/detail/{id_order}', [TransaksiResellerController::class, 'transaksi_reseller_detail']);
-  Route::get('/transaksi-selesai', [TransaksiResellerController::class, 'transaksi_reseller_selesai']);
-  Route::get('/transaksi-selesai/detail/{id_order}', [TransaksiResellerController::class, 'transaksi_reseller_detail']);
-  Route::get('/transaksi-batal', [TransaksiResellerController::class, 'transaksi_reseller_batal']);
-  Route::get('/transaksi-batal/detail/{id_order}', [TransaksiResellerController::class, 'transaksi_reseller_detail']);
-  Route::patch('/transaksi-update', [TransaksiResellerController::class, 'update_status_order']);
-  Route::patch('/transaksi-selesai', [TransaksiResellerController::class, 'transaksi_selesai']);
-  Route::delete('/transaksi-delete', [TransaksiResellerController::class, 'transaksi_delete']);
+  // Route::get('/transaksi-baru', [TransaksiResellerController::class, 'transaksi_reseller_baru']);
+  // Route::get('/transaksi-baru/detail/{id_order}', [TransaksiResellerController::class, 'transaksi_reseller_detail']);
+  // Route::get('/transaksi-selesai', [TransaksiResellerController::class, 'transaksi_reseller_selesai']);
+  // Route::get('/transaksi-selesai/detail/{id_order}', [TransaksiResellerController::class, 'transaksi_reseller_detail']);
+  // Route::get('/transaksi-batal', [TransaksiResellerController::class, 'transaksi_reseller_batal']);
+  // Route::get('/transaksi-batal/detail/{id_order}', [TransaksiResellerController::class, 'transaksi_reseller_detail']);
+  // Route::patch('/transaksi-update', [TransaksiResellerController::class, 'update_status_order']);
+  // Route::patch('/transaksi-selesai', [TransaksiResellerController::class, 'transaksi_selesai']);
+  // Route::delete('/transaksi-delete', [TransaksiResellerController::class, 'transaksi_delete']);
 
-  Route::get('/get-data-transaksi-baru', [TransaksiResellerController::class, 'get_transaksi_baru']);
-  Route::get('/get-data-transaksi-selesai', [TransaksiResellerController::class, 'get_transaksi_selesai']);
-  Route::get('/get-data-transaksi-batal', [TransaksiResellerController::class, 'get_transaksi_batal']);
-  Route::get('/get-data-transaksi/{id_order}', [TransaksiResellerController::class, 'get_data_transaksi']);
+  // Route::get('/get-data-transaksi-baru', [TransaksiResellerController::class, 'get_transaksi_baru']);
+  // Route::get('/get-data-transaksi-selesai', [TransaksiResellerController::class, 'get_transaksi_selesai']);
+  // Route::get('/get-data-transaksi-batal', [TransaksiResellerController::class, 'get_transaksi_batal']);
+  // Route::get('/get-data-transaksi/{id_order}', [TransaksiResellerController::class, 'get_data_transaksi']);
   
   // STOCKIST
-  Route::get('/manifest-baru', [TransaksiStockistController::class, 'manifest_baru']);
-  Route::get('/manifest-baru/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::get('/manifest-proses', [TransaksiStockistController::class, 'manifest_proses']);
-  Route::get('/manifest-proses/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::get('/manifest-verifikasi-nota', [TransaksiStockistController::class, 'manifest_verifikasi_nota']);
-  Route::get('/manifest-verifikasi/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::get('/manifest-selesai', [TransaksiStockistController::class, 'manifest_selesai']);
-  Route::get('/manifest-selesai/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::delete('/manifest-delete', [TransaksiStockistController::class, 'manifest_delete']);
+  // Route::get('/manifest-baru', [TransaksiStockistController::class, 'manifest_baru']);
+  // Route::get('/manifest-baru/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
+  // Route::get('/manifest-proses', [TransaksiStockistController::class, 'manifest_proses']);
+  // Route::get('/manifest-proses/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
+  // Route::get('/manifest-verifikasi-nota', [TransaksiStockistController::class, 'manifest_verifikasi_nota']);
+  // Route::get('/manifest-verifikasi/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
+  // Route::get('/manifest-selesai', [TransaksiStockistController::class, 'manifest_selesai']);
+  // Route::get('/manifest-selesai/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
+  // Route::delete('/manifest-delete', [TransaksiStockistController::class, 'manifest_delete']);
   
-  Route::get('/get-data-manifest-baru', [TransaksiStockistController::class, 'get_manifest_baru']);
-  Route::get('/get-data-manifest-proses', [TransaksiStockistController::class, 'get_manifest_proses']);
-  Route::get('/get-data-manifest-verifikasi-nota', [TransaksiStockistController::class, 'get_manifest_verifikasi']);
-  Route::get('/get-data-manifest-selesai', [TransaksiStockistController::class, 'get_manifest_selesai']);
-  Route::get('/get-data-manifest/{id_order}', [TransaksiStockistController::class, 'get_data_manifest']);
+  // Route::get('/get-data-manifest-baru', [TransaksiStockistController::class, 'get_manifest_baru']);
+  // Route::get('/get-data-manifest-proses', [TransaksiStockistController::class, 'get_manifest_proses']);
+  // Route::get('/get-data-manifest-verifikasi-nota', [TransaksiStockistController::class, 'get_manifest_verifikasi']);
+  // Route::get('/get-data-manifest-selesai', [TransaksiStockistController::class, 'get_manifest_selesai']);
+  // Route::get('/get-data-manifest/{id_order}', [TransaksiStockistController::class, 'get_data_manifest']);
 
-  Route::patch('/proses-approve-manifest', [TransaksiStockistController::class, 'approve_manifest']);
+  // Route::patch('/proses-approve-manifest', [TransaksiStockistController::class, 'approve_manifest']);
 
   // LAPORAN
-  Route::get('/laporan-penjualan-pelanggan', [LaporanController::class, 'laporan_penjualan_pelanggan']);
-  Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);
-  Route::get('/laporan-fee-koordinator', [LaporanController::class, 'laporan_fee_koordinator']);
-  Route::get('/laporan-produk-favorit', [LaporanController::class, 'laporan_produk_favorit']);
+  // Route::get('/laporan-penjualan-pelanggan', [LaporanController::class, 'laporan_penjualan_pelanggan']);
+  // Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);
+  // Route::get('/laporan-fee-koordinator', [LaporanController::class, 'laporan_fee_koordinator']);
+  // Route::get('/laporan-produk-favorit', [LaporanController::class, 'laporan_produk_favorit']);
 
   // ADMIN
   Route::get('/admin-trekkers', [AdminController::class, 'admin_trekkers']);
@@ -97,19 +92,19 @@ Route::group(['middleware' => 'role:Administrator'], function () {
   Route::get('/get-admin-trekkers/{user_id}', [AdminController::class, 'get_data_admin']);
 
   // MEMBER
-  Route::get('/member-trekkers', [MemberController::class, 'member_trekkers']);
-  Route::get('/member-verifikasi', [MemberController::class, 'member_trekkers_verifikasi']);
-  Route::patch('/member-approve-verifikasi', [MemberController::class, 'member_trekkers_approve_verifikasi']);
-  Route::patch('/member-trekkers/edit', [MemberController::class, 'member_trekkers_edit']);
-  Route::get('/get-data-member/{id_member}', [MemberController::class, 'get_data_member']);
-  Route::get('/get-data-member-verifikasi/{id_member}', [MemberController::class, 'get_data_member_verifikasi']);
+  // Route::get('/member-trekkers', [MemberController::class, 'member_trekkers']);
+  // Route::get('/member-verifikasi', [MemberController::class, 'member_trekkers_verifikasi']);
+  // Route::patch('/member-approve-verifikasi', [MemberController::class, 'member_trekkers_approve_verifikasi']);
+  // Route::patch('/member-trekkers/edit', [MemberController::class, 'member_trekkers_edit']);
+  // Route::get('/get-data-member/{id_member}', [MemberController::class, 'get_data_member']);
+  // Route::get('/get-data-member-verifikasi/{id_member}', [MemberController::class, 'get_data_member_verifikasi']);
 
   // SLIDER
-  Route::get('/setting-slider', [SliderController::class, 'data_slider']);
-  Route::post('/setting-slider/tambah', [SliderController::class, 'data_slider_tambah']);
-  Route::patch('/setting-slider/update', [SliderController::class, 'data_slider_update']);
-  Route::delete('/setting-slider/delete', [SliderController::class, 'data_slider_delete']);
-  Route::get('/get-data-slider/{id}', [SliderController::class, 'get_data_slider']);
+  // Route::get('/setting-slider', [SliderController::class, 'data_slider']);
+  // Route::post('/setting-slider/tambah', [SliderController::class, 'data_slider_tambah']);
+  // Route::patch('/setting-slider/update', [SliderController::class, 'data_slider_update']);
+  // Route::delete('/setting-slider/delete', [SliderController::class, 'data_slider_delete']);
+  // Route::get('/get-data-slider/{id}', [SliderController::class, 'get_data_slider']);
 
   // POIN DAN CASHBACK
   Route::get('/setting-poin', [PoinController::class, 'data_poin']);
@@ -140,17 +135,15 @@ Route::group(['middleware' => 'role:Administrator'], function () {
   Route::patch('/setting-promo-barang/update', [PromoController::class, 'promo_barang_update']);
 
   // URL SOSMED
-  Route::get('/setting-url-sosmed', [UrlController::class, 'data_url']);
-  Route::post('/setting-url-sosmed/tambah', [UrlController::class, 'data_url_tambah']);
-  Route::patch('/setting-url-sosmed/update', [UrlController::class, 'data_url_update']);
-  Route::delete('/setting-url-sosmed/delete', [UrlController::class, 'data_url_delete']);
-  Route::get('/get-data-url/{id}', [UrlController::class, 'get_data_url']);
+  // Route::get('/setting-url-sosmed', [UrlController::class, 'data_url']);
+  // Route::post('/setting-url-sosmed/tambah', [UrlController::class, 'data_url_tambah']);
+  // Route::patch('/setting-url-sosmed/update', [UrlController::class, 'data_url_update']);
+  // Route::delete('/setting-url-sosmed/delete', [UrlController::class, 'data_url_delete']);
+  // Route::get('/get-data-url/{id}', [UrlController::class, 'get_data_url']);
 });
 
-
-// ROLE WEB ADMIN
-Route::group(['middleware' => 'role:WebAdmin'], function () {
-  Route::get('/', [DashboardController::class, 'halaman_dashboard']);
+// AKSES ADMINISTRATOR DAN WEB-ADMIN
+Route::group(['middleware' => ['role:Administrator|WebAdmin']], function () {
   Route::get('/produk-all', [ProdukController::class, 'halaman_produk']);
   Route::get('/produk-baru', [ProdukController::class, 'halaman_produk_baru']);
   Route::get('/produk-populer', [ProdukController::class, 'halaman_produk_populer']);
@@ -173,31 +166,6 @@ Route::group(['middleware' => 'role:WebAdmin'], function () {
   Route::get('/get-data-transaksi-selesai', [TransaksiResellerController::class, 'get_transaksi_selesai']);
   Route::get('/get-data-transaksi-batal', [TransaksiResellerController::class, 'get_transaksi_batal']);
   Route::get('/get-data-transaksi/{id_order}', [TransaksiResellerController::class, 'get_data_transaksi']);
-  
-  // STOCKIST
-  Route::get('/manifest-baru', [TransaksiStockistController::class, 'manifest_baru']);
-  Route::get('/manifest-baru/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::get('/manifest-proses', [TransaksiStockistController::class, 'manifest_proses']);
-  Route::get('/manifest-proses/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::get('/manifest-verifikasi-nota', [TransaksiStockistController::class, 'manifest_verifikasi_nota']);
-  Route::get('/manifest-verifikasi/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::get('/manifest-selesai', [TransaksiStockistController::class, 'manifest_selesai']);
-  Route::get('/manifest-selesai/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
-  Route::delete('/manifest-delete', [TransaksiStockistController::class, 'manifest_delete']);
-  
-  Route::get('/get-data-manifest-baru', [TransaksiStockistController::class, 'get_manifest_baru']);
-  Route::get('/get-data-manifest-proses', [TransaksiStockistController::class, 'get_manifest_proses']);
-  Route::get('/get-data-manifest-verifikasi-nota', [TransaksiStockistController::class, 'get_manifest_verifikasi']);
-  Route::get('/get-data-manifest-selesai', [TransaksiStockistController::class, 'get_manifest_selesai']);
-  Route::get('/get-data-manifest/{id_order}', [TransaksiStockistController::class, 'get_data_manifest']);
-
-  Route::patch('/proses-approve-manifest', [TransaksiStockistController::class, 'approve_manifest']);
-
-  // LAPORAN
-  Route::get('/laporan-penjualan-pelanggan', [LaporanController::class, 'laporan_penjualan_pelanggan']);
-  Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);
-  Route::get('/laporan-fee-koordinator', [LaporanController::class, 'laporan_fee_koordinator']);
-  Route::get('/laporan-produk-favorit', [LaporanController::class, 'laporan_produk_favorit']);
 
   // MEMBER
   Route::get('/member-trekkers', [MemberController::class, 'member_trekkers']);
@@ -214,14 +182,15 @@ Route::group(['middleware' => 'role:WebAdmin'], function () {
   Route::delete('/setting-slider/delete', [SliderController::class, 'data_slider_delete']);
   Route::get('/get-data-slider/{id}', [SliderController::class, 'get_data_slider']);
 
-  // URL SOSMED
-  // Route::get('/setting-url-sosmed', [UrlController::class, 'data_url']);
+  Route::get('/setting-url-sosmed', [UrlController::class, 'data_url']);
+  Route::post('/setting-url-sosmed/tambah', [UrlController::class, 'data_url_tambah']);
+  Route::patch('/setting-url-sosmed/update', [UrlController::class, 'data_url_update']);
+  Route::delete('/setting-url-sosmed/delete', [UrlController::class, 'data_url_delete']);
+  Route::get('/get-data-url/{id}', [UrlController::class, 'get_data_url']);
 });
 
-
-// ROLE GUDANG JADI
-Route::group(['middleware' => 'role:GudangJadi'], function () {  
-  Route::get('/', [DashboardController::class, 'halaman_dashboard']);
+// AKSES ADMINISTRATOR DAN GUDANG JADI
+Route::group(['middleware' => ['role:Administrator|GudangJadi']], function () {
   // STOCKIST
   Route::get('/manifest-baru', [TransaksiStockistController::class, 'manifest_baru']);
   Route::get('/manifest-baru/detail/{id_order}/{status_approval}/{status}', [TransaksiStockistController::class, 'manifest_detail']);
@@ -240,26 +209,9 @@ Route::group(['middleware' => 'role:GudangJadi'], function () {
   Route::get('/get-data-manifest/{id_order}', [TransaksiStockistController::class, 'get_data_manifest']);
 
   Route::patch('/proses-approve-manifest', [TransaksiStockistController::class, 'approve_manifest']);
-
-  // LAPORAN
-  Route::get('/laporan-penjualan-pelanggan', [LaporanController::class, 'laporan_penjualan_pelanggan']);
-  Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);
-  Route::get('/laporan-fee-koordinator', [LaporanController::class, 'laporan_fee_koordinator']);
-  Route::get('/laporan-produk-favorit', [LaporanController::class, 'laporan_produk_favorit']);
 });
 
-// ROLE KOORDINATOR RESELLER
-Route::group(['middleware' => 'role:KoordinatorReseller'], function () {  
-  Route::get('/', [DashboardController::class, 'halaman_dashboard']);
-  
-  // LAPORAN
-  Route::get('/laporan-penjualan-pelanggan', [LaporanController::class, 'laporan_penjualan_pelanggan']);
-  Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);
-  Route::get('/laporan-fee-koordinator', [LaporanController::class, 'laporan_fee_koordinator']);
-  Route::get('/laporan-produk-favorit', [LaporanController::class, 'laporan_produk_favorit']);
-});
-
-// AKSES CUSTOM
+// AKSES ALL USER
 Route::group(['middleware' => ['role:Administrator|WebAdmin|GudangJadi|KoordinatorReseller']], function () {
   Route::get('/', [DashboardController::class, 'halaman_dashboard']);
 

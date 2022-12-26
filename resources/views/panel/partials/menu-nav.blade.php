@@ -518,62 +518,6 @@
             </div>
           </div>
         </li>
-        <li class="nav-item @if(Request::is('manifest-baru') || Request::is('manifest-baru/*') || Request::is('manifest-proses') || Request::is('manifest-proses/*') || Request::is('manifest-verifikasi-nota') || Request::is('manifest-verifikasi/*') || Request::is('manifest-selesai') || Request::is('manifest-selesai/*') || Request::is('manifest-batal') || Request::is('manifest-batal/*')) active @else @endif">
-          <a  class="nav-link" data-toggle="collapse" href="#transaksiStockist" role="button" aria-expanded="false" aria-controls="transaksiStockist">
-            <span class="svg-icon nav-icon">
-              <i class="fas fa-money-check-alt font-size-h4"></i>
-            </span>
-            <span class="nav-text">Transaksi Stockist</span>
-            <i class="fas fa-chevron-right fa-rotate-90"></i>
-          </a>
-          <div class="collapse nav-collapse @if(Request::is('manifest-baru') || Request::is('manifest-baru/*') || Request::is('manifest-proses') || Request::is('manifest-proses/*') || Request::is('manifest-verifikasi-nota') || Request::is('manifest-verifikasi/*') || Request::is('manifest-selesai') || Request::is('manifest-selesai/*') || Request::is('manifest-batal') || Request::is('manifest-batal/*')) show @else @endif" id="transaksiStockist"  data-parent="#accordion">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a href="{{ url('/manifest-baru') }}" class="nav-link sub-nav-link @if(Request::is('manifest-baru') || Request::is('manifest-baru/*')) active @else @endif">
-                  <span class="svg-icon nav-icon d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                      </svg>
-                  </span>
-                  <span class="nav-text">Baru</span><span class="badge badge-pill badge-danger" id="totalManifestBaru">0</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/manifest-proses') }}" class="nav-link sub-nav-link @if(Request::is('manifest-proses') || Request::is('manifest-proses/*')) active @else @endif">
-                  <span class="svg-icon nav-icon d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                      </svg>
-                  </span>
-                  <span class="nav-text">Proses</span><span class="badge badge-pill badge-danger" id="totalManifestProses">0</span>
-                </a>
-              </li>
-              
-              <li class="nav-item">
-                <a href="{{ url('/manifest-verifikasi-nota') }}" class="nav-link sub-nav-link @if(Request::is('manifest-verifikasi-nota') || Request::is('manifest-verifikasi/*')) active @else @endif">
-                  <span class="svg-icon nav-icon d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                      </svg>
-                  </span>
-                  <span class="nav-text">Verifikasi Nota</span><span class="badge badge-pill badge-danger" id="totalManifestVerifikasiNota">0</span>
-                </a>
-              </li>
-              
-              <li class="nav-item">
-                <a href="{{ url('/manifest-selesai') }}" class="nav-link sub-nav-link @if(Request::is('manifest-selesai') || Request::is('manifest-selesai/*')) active @else @endif">
-                  <span class="svg-icon nav-icon d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                      </svg>
-                  </span>
-                  <span class="nav-text">Selesai</span><span class="badge badge-pill badge-danger" id="totalManifestSelesai">0</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
         <li class="nav-item @if(Request::is('laporan-penjualan-pelanggan') || Request::is('laporan-penjualan-trekkers-link') || Request::is('laporan-fee-koordinator') || Request::is('laporan-produk-favorit')) active @else @endif">
           <a  class="nav-link" data-toggle="collapse" href="#reports" role="button" aria-expanded="false" aria-controls="reports">
             <span class="svg-icon nav-icon">
@@ -799,6 +743,75 @@
           </div>
         </li>
 
+        <li class="nav-item @if(Request::is('laporan-penjualan-pelanggan') || Request::is('laporan-penjualan-trekkers-link') || Request::is('laporan-fee-koordinator') || Request::is('laporan-produk-favorit')) active @else @endif">
+          <a  class="nav-link" data-toggle="collapse" href="#reports" role="button" aria-expanded="false" aria-controls="reports">
+            <span class="svg-icon nav-icon">
+              <i class="fas fa-chart-line font-size-h4"></i>
+            </span>
+            <span class="nav-text">Laporan</span>
+            <i class="fas fa-chevron-right fa-rotate-90"></i>
+          </a>
+          <div class="collapse nav-collapse @if(Request::is('laporan-penjualan-pelanggan') || Request::is('laporan-penjualan-trekkers-link') || Request::is('laporan-fee-koordinator') || Request::is('laporan-produk-favorit')) show @else @endif" id="reports" data-parent="#accordion">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a href="{{ url('/laporan-penjualan-pelanggan') }}" class="nav-link sub-nav-link @if(Request::is('laporan-penjualan-pelanggan')) active @else @endif">
+                  <span class="svg-icon nav-icon d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      </svg>
+                  </span>
+                  <span class="nav-text">Penjualan Per Pelanggan</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/laporan-penjualan-trekkers-link') }}" class="nav-link sub-nav-link @if(Request::is('laporan-penjualan-trekkers-link')) active @else @endif">
+                  <span class="svg-icon nav-icon d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      </svg>
+                  </span>
+                  <span class="nav-text">Penjualan Trekkers Link</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/laporan-fee-koordinator') }}" class="nav-link sub-nav-link @if(Request::is('laporan-fee-koordinator')) active @else @endif">
+                  <span class="svg-icon nav-icon d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      </svg>
+                  </span>
+                  <span class="nav-text">Fee Koordinator</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/laporan-produk-favorit') }}" class="nav-link sub-nav-link @if(Request::is('laporan-produk-favorit')) active @else @endif">
+                  <span class="svg-icon nav-icon d-flex justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      </svg>
+                  </span>
+                  <span class="nav-text">Produk Favorit</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        @endrole
+
+        @role('KoordinatorReseller')
+        <li class="nav-item {{Request::is('/') ? 'active' : '' }}">
+          <a href="{{ url('/') }}" class="nav-link">
+            <span class="svg-icon nav-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </span>
+            <span class="nav-text">
+              Beranda
+            </span>
+          </a>
+        </li>
         <li class="nav-item @if(Request::is('laporan-penjualan-pelanggan') || Request::is('laporan-penjualan-trekkers-link') || Request::is('laporan-fee-koordinator') || Request::is('laporan-produk-favorit')) active @else @endif">
           <a  class="nav-link" data-toggle="collapse" href="#reports" role="button" aria-expanded="false" aria-controls="reports">
             <span class="svg-icon nav-icon">
