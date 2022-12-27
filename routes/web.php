@@ -120,6 +120,8 @@ Route::group(['middleware' => 'role:Administrator'], function () {
 
   // VOUCHER
   Route::get('/setting-voucher', [VoucherController::class, 'data_voucher']);
+  Route::post('/setting-voucher/tambah', [VoucherController::class, 'data_voucher_tambah']);
+  Route::get('/get-data-voucher/{id_voucher}', [VoucherController::class, 'get_data_voucher']);
 
   // BONUS PELANGGAN, KOORDINATOR DAN RESELLER
   Route::get('/setting-bonus-pelanggan', [BonusController::class, 'data_bonus_pelanggan']);

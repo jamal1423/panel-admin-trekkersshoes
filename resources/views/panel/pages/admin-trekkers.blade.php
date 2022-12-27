@@ -167,7 +167,7 @@
                     </div>
                     <div class="form-group">
                       <label>Hak Akses</label>
-                      <select class="js-example-basic-single js-states form-control bg-transparent @error('hak_akses') is-invalid @enderror" name="hak_akses" id="hak_akses_edit">
+                      <select class="js-example-basic-singleEdit js-states form-control bg-transparent @error('hak_akses') is-invalid @enderror" name="hak_akses" id="hak_akses_edit">
                       </select>
                       @error('hak_akses')
                         <div class="form-text text-danger">{{ $message }}</div>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="form-group">
                       <label>Adm Mitra</label>
-                      <select class="js-example-basic-single js-states form-control bg-transparent @error('adm_mitra') is-invalid @enderror" name="adm_mitra" id="adm_mitra_edit">
+                      <select class="js-example-basic-singleEdit js-states form-control bg-transparent @error('adm_mitra') is-invalid @enderror" name="adm_mitra" id="adm_mitra_edit">
                       </select>
                       @error('adm_mitra')
                         <div class="form-text text-danger">{{ $message }}</div>
@@ -335,7 +335,15 @@
 <script src="{{ asset('panel/assets/api/multiple-select/multiple-select.min.js') }}"></script>
 <script>
   jQuery(document).ready(function() {
-    jQuery('.js-example-basic-single').select2();
+    jQuery('.js-example-basic-single').select2({
+      tags:true,
+      dropdownParent:$('#modalForm'),
+    });
+    
+    jQuery('.js-example-basic-singleEdit').select2({
+      tags:true,
+      dropdownParent:$('#modalFormEdit'),
+    });
   });
   jQuery(document).ready(function() {
     jQuery('.js-example-basic-multiple').select2();

@@ -330,7 +330,7 @@
                 <label style="margin-left: -15px;">Disc (% / Rp.)</label><br>
                 <input type="checkbox" class="form-check-input" name="disc_label" value="Y" id="disc_label">
                 <label class="form-check-label">Potongan <small class="text-danger"> *centang jika potongan %</small></label>
-                <input type="text" name="disc_value" id="disc_value" class="form-control" style="margin-left: -15px;margin-top:10px;">
+                <input type="number" name="disc_value" id="disc_value" class="form-control" style="margin-left: -15px;margin-top:10px;">
               </div>
             </div>
           </div>
@@ -436,7 +436,7 @@
 
 <script>
   jQuery(document).ready(function() {
-    jQuery('.js-example-basic-single').select2();
+    jQuery('.js-example-basic-single').select2({});
   });
   jQuery(document).ready(function() {
     jQuery('.js-example-basic-multiple').select2();

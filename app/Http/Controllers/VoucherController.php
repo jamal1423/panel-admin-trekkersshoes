@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MasterPelanggan;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 
@@ -10,8 +11,38 @@ class VoucherController extends Controller
     public function data_voucher()
     {
         $dataVoucher = Voucher::all();
+        $masterPelanggan = MasterPelanggan::orderBy('jns_pelanggan','DESC')->get();
         return view('panel.pages.setting-voucher', [
-            'dataVoucher' => $dataVoucher
+            'dataVoucher' => $dataVoucher,
+            'masterPelanggan' => $masterPelanggan
         ]);
+    }
+
+    public function data_voucher_tambah(Request $request){
+        try {
+            $validatedData = $request->validate([
+                'kd_voucher' => 'required',
+                'voucher_persen_rp' => '',
+                'voucher_val' => 'required',
+                'jenis_pelanggan' => 'required',
+                'status_voucher' => 'required',
+                'batas_pakai' => 'required'
+            ]);
+
+            if($request->voucher_persen_rp==""){
+                $validatedData['voucher_persen_rp'] = "N";
+            }
+
+            Voucher::create($validatedData);
+            return redirect('/setting-voucher')->with('voucher-tambah', 'Sukses, Data berhasil ditambahkan!'); 
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/setting-voucher')->with('admin-error', 'Error, Ulangi proses!');
+        }
+    }
+
+    public function get_data_voucher($id_voucher){
+        $getVoucher = base64_decode($id_voucher);
+        $dataVoucher = Voucher::where('id_voucher', $getVoucher)->first();
+        return response()->json($dataVoucher);
     }
 }

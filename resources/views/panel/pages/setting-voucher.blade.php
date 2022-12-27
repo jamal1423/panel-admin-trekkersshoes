@@ -1,5 +1,18 @@
 @extends('panel.layouts.main')
 
+@push('style')
+<style>
+  @media print {
+    #hidePrint{
+      display:none;
+      font-size: 16px;
+    }
+  }
+  </style>
+  <link href="{{ asset('panel/assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('panel/assets/api/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="tc_content">
   <!--begin::Subheader-->
@@ -46,42 +59,6 @@
                       </span>
                     </a>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!--form Modal -->
-          <div class="modal fade text-left" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel33">Voucher Pelanggan </h4>
-                  <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                    <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                    </svg>
-                  </button>
-                </div>
-              
-                <div class="modal-body">
-                  <form id="myform">
-                    <div class="form-group">
-                      <label for="jenisPelanggan">Group Pelanggan</label>
-                      <input type="text" name="jns_pelanggan" class="form-control" id="jenisPelanggan" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                      <label for="kuponRegister">Kode Member</label>
-                      <input type="text" name="kupon_register" class="form-control" id="kuponRegister">
-                    </div>
-                    <div class="form-group form-check">
-                      <label style="margin-left: -15px;">Potongan (% / Rp.)</label><br>
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Potongan <small class="text-danger"> *centang jika potongan %</small></label>
-                      <input type="text" name="disc_val" class="form-control" style="margin-left: -15px;margin-top:10px;">
-                    </div>
-                    <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambahkan</button>
-                  </form>
                 </div>
               </div>
             </div>
@@ -139,8 +116,8 @@
                                   </span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdowneditButton">
-                                  <a class="dropdown-item" href="add-product.html">Edit</a>
-                                  <a class="dropdown-item confirm-delete" title="Delete" href="#">Hapus</a>
+                                  <a class="dropdown-item" id="admin-edit-{{ base64_encode($voucher->id_voucher) }}" onClick="voucherEdit(this)" data-id="{{ base64_encode($voucher->id_voucher) }}" href="#">Edit</a>
+                                  <a class="dropdown-item" title="Delete" href="#">Hapus</a>
                                 </div>
                                 </div>
                             </td>
@@ -159,19 +136,203 @@
     </div>
   </div>
 </div>
+
+<!--form Modal Add -->
+<div class="modal fade text-left" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel33">Voucher </h4>
+        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
+          <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+          </svg>
+        </button>
+      </div>
+    
+      <div class="modal-body">
+        <form id="myform" action="{{ url('/setting-voucher/tambah') }}" method="post">
+          @csrf
+          @method('post')
+          <div class="row">
+            <div class="col-md-12 col-12">
+              <div class="form-group">
+                <label>Kode Voucher</label>
+                <input type="hidden" name="id_voucher" id="id_voucher">
+                <input type="text" name="kd_voucher" id="kd_voucher" class="form-control @error('kd_voucher') is-invalid @enderror" value="{{ old('kd_voucher') }}">
+                @error('kd_voucher')
+                  <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-12">
+              <div class="form-group form-check">
+                <label style="margin-left: -15px;">Disc (% / Rp.)</label><br>
+                <input type="checkbox" class="form-check-input" name="voucher_persen_rp" id="voucher_persen_rp" value="Y">
+                <label class="form-check-label">Potongan <small class="text-danger"> *centang jika potongan %</small></label>
+                <input type="number" name="voucher_val" id="voucher_val" value="{{ old('voucher_val','0') }}" class="form-control @error('voucher_val') is-invalid @enderror" style="margin-left: -15px;margin-top:10px;">
+                @error('voucher_val')
+                  <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <div class="form-group">
+                <label>Jenis Pelanggan</label>
+                <select class="js-example-basic-single js-states form-control" name="jenis_pelanggan" id="jenis_pelanggan">
+                  @foreach($masterPelanggan as $pelanggan)
+                    <option value="{{ $pelanggan->jns_pelanggan }}">{{ $pelanggan->jns_pelanggan }}</option>
+                  @endforeach
+                </select>
+                @error('jenis_pelanggan')
+                  <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="col-md-6 col-6">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="js-example-basic-single js-states form-control" name="status_voucher" id="status_voucher">
+                  <option></option>
+                  <option value="aktif">Aktif</option>
+                  <option value="non-aktif">Non-Aktif</option>
+                </select>
+                @error('status_voucher')
+                  <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-12">
+              <div class="form-group">
+                <label>Batas Pakai</label>
+                <input type="number" name="batas_pakai" class="form-control datepicker mb-3 @error('batas_pakai') is-invalid @enderror" value="{{ old('batas_pakai') }}">
+                @error('batas_pakai')
+                  <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambahkan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('script')
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="{{ asset('panel/assets/js/sweetalert.js') }}"></script>
+<script src="{{ asset('panel/assets/js/sweetalert1.js') }}"></script>
+<script src="{{ asset('panel/assets/api/select2/select2.min.js') }}"></script>
+
+@if (count($errors) > 0)
+  <script type="text/javascript">
+      $(document).ready(function() {
+        $('#modalForm').modal('show');
+      });
+  </script>
+@endif
+
+<script>
+  jQuery(document).ready(function() {
+    jQuery('.js-example-basic-single').select2({
+      tags:true,
+      dropdownParent:$('#modalForm'),
+    });
+  });
+</script>
+
+@if(Session::has('voucher-tambah'))
+<script>
+  $(document).ready(function() {
+    Swal.fire({ 
+        title: "Sukses!", 
+        text: "Voucher berhasil ditambahkan!",
+        type: "success", 
+        confirmButtonClass: "btn btn-primary", 
+        buttonsStyling: !1 
+    }) 
+  });
+</script>
+@endif
+
+@if(Session::has('voucher-edit'))
+<script>
+  $(document).ready(function() {
+    Swal.fire({ 
+        title: "Sukses!", 
+        text: "Voucher berhasil diupdate!",
+        type: "success", 
+        confirmButtonClass: "btn btn-primary", 
+        buttonsStyling: !1 
+    }) 
+  });
+</script>
+@endif
+
+@if(Session::has('voucher-delete'))
+<script>
+  $(document).ready(function() {
+    Swal.fire({ 
+        title: "Sukses!", 
+        text: "Voucher berhasil dihapus!",
+        type: "success", 
+        confirmButtonClass: "btn btn-primary", 
+        buttonsStyling: !1 
+    }) 
+  });
+</script>
+@endif
+
+@if(Session::has('voucher-error'))
+<script>
+  $(document).ready(function() {
+    Swal.fire({ 
+        title: "Error!", 
+        text: "Error, Silahkan ulangi proses!",
+        type: "error", 
+        confirmButtonClass: "btn btn-primary", 
+        buttonsStyling: !1 
+    }) 
+  });
+</script>
+@endif
+
 <script>
   jQuery(document).ready( function () {
     jQuery('#voucherPelanggan').dataTable( {
       "pagingType": "simple_numbers",
-    
       "columnDefs": [ {
         "targets"  : 'no-sort',
         "orderable": false,
       }]
     });
   });
+</script>
+
+<script>
+  function voucherEdit(element) {
+    var id = $(element).attr('data-id');
+    $.ajax({
+      url: "/get-data-voucher/" + id,
+      type: "GET",
+      dataType: "JSON",
+      success: function(data) {
+        console.log(data)
+        let {
+          dataVoucher
+        } = data
+        
+        $('#modalForm').modal('show');
+      }
+    });
+  }
 </script>
 @endpush
