@@ -117,7 +117,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdowneditButton">
                                   <a class="dropdown-item" id="admin-edit-{{ base64_encode($voucher->id_voucher) }}" onClick="voucherEdit(this)" data-id="{{ base64_encode($voucher->id_voucher) }}" href="#">Edit</a>
-                                  <a class="dropdown-item" title="Delete" href="#">Hapus</a>
+                                  <a class="dropdown-item" title="Delete" href="#" id="voucher-delete-{{ base64_encode($voucher->id_voucher) }}" onClick="voucherDelete(this)" data-id="{{ base64_encode($voucher->id_voucher) }}">Hapus</a>
                                 </div>
                                 </div>
                             </td>
@@ -151,7 +151,7 @@
       </div>
     
       <div class="modal-body">
-        <form id="myform" action="{{ url('/setting-voucher/tambah') }}" method="post">
+        <form id="modal-form" action="{{ url('/setting-voucher/tambah') }}" method="post">
           @csrf
           @method('post')
           <div class="row">
@@ -197,7 +197,6 @@
               <div class="form-group">
                 <label>Status</label>
                 <select class="js-example-basic-single js-states form-control" name="status_voucher" id="status_voucher">
-                  <option></option>
                   <option value="aktif">Aktif</option>
                   <option value="non-aktif">Non-Aktif</option>
                 </select>
@@ -211,16 +210,48 @@
             <div class="col-md-12 col-12">
               <div class="form-group">
                 <label>Batas Pakai</label>
-                <input type="number" name="batas_pakai" class="form-control datepicker mb-3 @error('batas_pakai') is-invalid @enderror" value="{{ old('batas_pakai') }}">
+                <input type="number" name="batas_pakai" id="batas_pakai" class="form-control datepicker mb-3 @error('batas_pakai') is-invalid @enderror" value="{{ old('batas_pakai') }}">
                 @error('batas_pakai')
                   <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambahkan</button>
+          <button type="submit" id="btn-submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambahkan</button>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+{{-- MODAL DELETE --}}
+<div class="modal fade text-left" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="modalHapus" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title white">Hapus Voucher</h5>
+        <button type="button" class="white close rounded-pill btn btn-sm btn-icon btn-danger  m-0" data-dismiss="modal" aria-label="Close">
+        <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+        </svg>	
+        </button>
+      </div>
+      <form action="{{ url('/setting-voucher/delete') }}" method="post">
+        @csrf
+        @method('delete')
+        <div class="modal-body">
+          Yakin akan menghapus voucher <label class="font-weight-bold" id="label-del"></label>?
+          <input type="hidden" name="id_voucher" id="id_voucher_del">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            <span class="">Batal</span>
+          </button>
+          <button type="submit" class="btn btn-danger ml-1">
+            <span class="">Ya</span>
+          </button>
+        </div> 			
+      </form>
     </div>
   </div>
 </div>
@@ -325,12 +356,61 @@
       type: "GET",
       dataType: "JSON",
       success: function(data) {
-        console.log(data)
+        // console.log(data)
         let {
-          dataVoucher
+          dataVoucher,
+          masterPelanggan
         } = data
+        $('#modal-form').attr('action','{{ url("/setting-voucher/edit") }}');
+        $('#id_voucher').val(dataVoucher.id_voucher);
+        $('#kd_voucher').val(dataVoucher.kd_voucher);
+        $('#batas_pakai').val(dataVoucher.batas_pakai);
+        $('#voucher_val').val(dataVoucher.voucher_val);
+
+        var checkElement = $('#voucher_persen_rp');
+        checkElement.empty();
+        if(dataVoucher.voucher_persen_rp == "Y"){
+          $('#voucher_persen_rp').attr('checked', true);
+        }else{
+          $('#voucher_persen_rp').attr('checked', false);
+        }
+
+        var selectElement = $('#jenis_pelanggan');
+        selectElement.empty();
+        for(jnsPel of masterPelanggan){
+          selectElement.append(`
+              <option value="${jnsPel.jns_pelanggan}">${jnsPel.jns_pelanggan}</option>
+            `)
+          if (jnsPel.jns_pelanggan == dataVoucher.jenis_pelanggan) {
+            $("#jenis_pelanggan option[value='" + jnsPel.jns_pelanggan + "']").attr("selected", "selected");
+          }
+        }
         
+        var selectElement2 = $('#status_voucher');
+        selectElement2.empty();
+        selectElement2.append(`
+          <option value="aktif">Aktif</option>
+          <option value="non-aktif">Non-Aktif</option>
+        `)
+        $("#status_voucher option[value='" + dataVoucher.status_voucher + "']").attr("selected", "selected");
+
         $('#modalForm').modal('show');
+      }
+    });
+  }
+
+  function voucherDelete(element) {
+    var id = $(element).attr('data-id');
+    $.ajax({
+      url: "/get-data-voucher/" + id,
+      type: "GET",
+      dataType: "JSON",
+      success: function(data) {
+        console.log(data)
+        let {dataVoucher} = data
+        $('#id_voucher_del').val(dataVoucher.id_voucher);
+        $('#label-del').text(dataVoucher.kd_voucher);
+        $('#modalHapus').modal('show');
       }
     });
   }
