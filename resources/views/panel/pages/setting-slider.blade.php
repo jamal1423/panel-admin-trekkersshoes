@@ -114,7 +114,7 @@
                         </div>
                         <div class="thumbnail-imges ">
                           <a class="img-select d-block" href="javascript:void(0);">
-                          <img class="img-fluid" src="{{ asset('slider/'.$slider->gambar) }}" alt="image">
+                          <img class="img-fluid" src="{{ $baseUrlImage.$slider->gambar }}" alt="image">
                         </a>
                         </div>
                       </div>

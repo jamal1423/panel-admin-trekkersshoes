@@ -13,8 +13,10 @@ class SliderController extends Controller
     {
         try {            
             $dataSlider = Slider::all();
+            $baseUrlImage = "https://panel.trekkersshoes.com/images/slider/";
             return view('panel.pages.setting-slider', [
-                'dataSlider' => $dataSlider
+                'dataSlider' => $dataSlider,
+                'baseUrlImage' => $baseUrlImage
             ]);
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/setting-slider')->with('slider-error', 'Error, Ulangi proses!');
@@ -29,17 +31,38 @@ class SliderController extends Controller
     
     public function data_slider_tambah(Request $request)
     {
+        // try {
+        //     $validatedData = $request->validate([
+        //         'nama' => 'required',
+        //         'gambar' => 'required',
+        //     ]);
+
+        //     if ($request->hasFile('gambar')) {
+        //         $image = $request->file('gambar');
+        //         $name = "slider-".date('mdYHis') .'-'. uniqid() .'-'. $image->getClientOriginalName();
+        //         $image->move(public_path() . '/slider/', $name);
+        //         $validatedData['gambar'] = $name;
+        //     }
+
+        //     Slider::create($validatedData);
+        //     return redirect('/setting-slider')->with('slider-tambah', 'Slider baru berhasil ditambahkan!');
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     return redirect('/setting-slider')->with('slider-error', 'Error, Ulangi proses!');
+        // }
+        
         try {
             $validatedData = $request->validate([
                 'nama' => 'required',
                 'gambar' => 'required',
             ]);
 
-            if ($request->hasFile('gambar')) {
-                $image = $request->file('gambar');
-                $name = "slider-".date('mdYHis') .'-'. uniqid() .'-'. $image->getClientOriginalName();
-                $image->move(public_path() . '/slider/', $name);
-                $validatedData['gambar'] = $name;
+            if($request->hasFile('gambar')) {
+                $filenamewithextension = $request->file('gambar')->getClientOriginalName();
+                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+                $extension = $request->file('gambar')->getClientOriginalExtension();
+                $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+                Storage::disk('ftp_slider')->put($filenametostore, fopen($request->file('gambar'), 'r+'));
+                $validatedData['gambar'] = $filenametostore;
             }
 
             Slider::create($validatedData);
@@ -54,7 +77,9 @@ class SliderController extends Controller
         //     $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
         //     $extension = $request->file('gambar')->getClientOriginalExtension();
         //     $filenametostore = $filename.'_'.uniqid().'.'.$extension;
-        //     Storage::disk('ftp')->put($filenametostore, fopen($request->file('gambar'), 'r+'));
+        //     // Storage::disk('ftp_slider')->put($filenametostore, fopen($request->file('gambar'), 'r+'));
+        //     Storage::disk('ftp_produk')->put($filenametostore, fopen($request->file('gambar'), 'r+'));
+        //     Storage::disk('ftp_produk_detail')->put($filenametostore, fopen($request->file('gambar'), 'r+'));
         // }
         // return redirect('/setting-slider')->with('slider-tambah', 'Slider baru berhasil ditambahkan!');
     }

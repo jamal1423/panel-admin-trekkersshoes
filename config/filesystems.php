@@ -56,11 +56,31 @@ return [
             'throw' => false,
         ],
 
-        'ftp' => [
+        'ftp_slider' => [
             'driver' => 'ftp',
             'host' => env('FTP_HOST'),
-            'username' => env('FTP_USERNAME'),
-            'password' => env('FTP_PASSWORD'),
+            'username' => env('FTP_USERNAME_SLIDER'),
+            'password' => env('FTP_PASSWORD_SLIDER'),
+            'root' => '/',
+            'ignorePassiveAddress' => true, 
+            'port' => 21,
+        ],
+        
+        'ftp_produk' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME_PRODUK'),
+            'password' => env('FTP_PASSWORD_PRODUK'),
+            'root' => '/',
+            'ignorePassiveAddress' => true, 
+            'port' => 21,
+        ],
+        
+        'ftp_produk_detail' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME_PRODUK_DETAIL'),
+            'password' => env('FTP_PASSWORD_PRODUK_DETAIL'),
             'root' => '/',
             'ignorePassiveAddress' => true, 
             'port' => 21,
