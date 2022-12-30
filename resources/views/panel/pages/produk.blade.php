@@ -84,7 +84,7 @@
                             </td>
                             <td>{{ $produk->jenis.' / '.$produk->tipe_produk.' / '.$produk->nama_group }}</td>
                             <td>
-                              <img src="{{ asset('produk/'.$produk->foto_produk) }}" alt="Produk" width="50px">
+                              <img src="{{ $baseUrlImage.$produk->foto_produk }}" alt="Produk" width="50px">
                             </td>
                             <td>
                               <div class="card-toolbar text-right">

@@ -183,7 +183,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview1" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail1) }}')"></div>
+                              <div id="imagePreview1" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail1 }}')"></div>
                             </div>
                           </div>
                         </div>
@@ -199,7 +199,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview2" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail2) }}')">
+                              <div id="imagePreview2" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail2 }}')">
                               </div>
                             </div>
                           </div>
@@ -216,7 +216,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview3" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail3) }}')">
+                              <div id="imagePreview3" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail3 }}')">
                               </div>
                             </div>
                           </div>
@@ -233,7 +233,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview4" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail4) }}')">
+                              <div id="imagePreview4" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail4 }}')">
                               </div>
                             </div>
                           </div>
@@ -250,7 +250,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview5" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail5) }}')">
+                              <div id="imagePreview5" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail5 }}')">
                               </div>
                             </div>
                           </div>
@@ -267,7 +267,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview6" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail6) }}')">
+                              <div id="imagePreview6" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail6 }}')">
                               </div>
                             </div>
                           </div>
@@ -284,7 +284,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview7" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail7) }}')">
+                              <div id="imagePreview7" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail7 }}')">
                               </div>
                             </div>
                           </div>
@@ -301,7 +301,7 @@
                               @endif
                             </div>
                             <div class="avatar-preview">
-                              <div id="imagePreview8" class="rounded" style="background-image: url('{{ asset('produk-detail/'.$detail->foto_produk_detail8) }}')">
+                              <div id="imagePreview8" class="rounded" style="background-image: url('{{ $baseUrlImage.$detail->foto_produk_detail8 }}')">
                               </div>
                             </div>
                           </div>

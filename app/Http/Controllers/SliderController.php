@@ -13,7 +13,8 @@ class SliderController extends Controller
     {
         try {            
             $dataSlider = Slider::all();
-            $baseUrlImage = "https://panel.trekkersshoes.com/images/slider/";
+            // $baseUrlImage = "https://panel.trekkersshoes.com/images/slider/";
+            $baseUrlImage = "https://trekkersshoes.com/assets/img/slider/";
             return view('panel.pages.setting-slider', [
                 'dataSlider' => $dataSlider,
                 'baseUrlImage' => $baseUrlImage
@@ -96,19 +97,26 @@ class SliderController extends Controller
                 
                 if ($request->oldImage) {
                     $gmbr = $request->oldImage;
-                    $image_path = public_path() . '/slider/' . $gmbr;
-                    if (File::exists($image_path)) {
-                        File::delete($image_path);
-                    }
+                    // $image_path = public_path() . '/slider/' . $gmbr;
+                    // if (File::exists($image_path)) {
+                    //     File::delete($image_path);
+                    // }
+
+                    Storage::disk('ftp_slider')->delete($gmbr);
                 }
 
-                $image = $request->file('gambar');
-                $name = date('mdYHis') .'-'. uniqid() .'-'. $image->getClientOriginalName();
-                
-                $image->move(public_path() . '/slider/', $name);
-                $validatedData['gambar'] = $name;
-            }
+                // $image = $request->file('gambar');
+                // $name = date('mdYHis') .'-'. uniqid() .'-'. $image->getClientOriginalName();
+                // $image->move(public_path() . '/slider/', $name);
+                // $validatedData['gambar'] = $name;
 
+                $filenamewithextension = $request->file('gambar')->getClientOriginalName();
+                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+                $extension = $request->file('gambar')->getClientOriginalExtension();
+                $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+                Storage::disk('ftp_slider')->put($filenametostore, fopen($request->file('gambar'), 'r+'));
+                $validatedData['gambar'] = $filenametostore;
+            }
 
             Slider::where('id', $request->id_edit)
                 ->update($validatedData);
@@ -121,10 +129,12 @@ class SliderController extends Controller
     public function data_slider_delete(Request $request){
         try {
             $gmbr = $request->oldImage;
-            $image_path = public_path() . '/slider/' . $gmbr;
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-            }
+            // $image_path = public_path() . '/slider/' . $gmbr;
+            // if (File::exists($image_path)) {
+            //     File::delete($image_path);
+            // }
+
+            Storage::disk('ftp_slider')->delete($gmbr);
 
             Slider::destroy($request->id);
             return redirect('/setting-slider')->with('slider-delete', 'Slider telah dihapus!');
