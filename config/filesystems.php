@@ -57,13 +57,19 @@ return [
         ],
 
         'ftp_slider' => [
-            'driver' => 'ftp',
+            'driver' => 'sftp',
             'host' => env('FTP_HOST'),
             'username' => env('FTP_USERNAME_SLIDER'),
             'password' => env('FTP_PASSWORD_SLIDER'),
             'root' => '/',
-            'ignorePassiveAddress' => true, 
-            'port' => 21,
+            // 'ignorePassiveAddress' => true, 
+            // 'port' => 22,
+            // 'visibility' => 'public',
+            // 'permPublic' => 0755,
+
+            // Settings for SSH key based authentication...
+            'privateKey' => '/home/trekkers/.ssh/id_rsa.pub',
+            'password' => '___bissMill4h!!!___',
         ],
         
         'ftp_produk' => [

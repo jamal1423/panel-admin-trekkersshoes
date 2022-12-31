@@ -12,12 +12,14 @@ class ProdukController extends Controller
 {
     public function halaman_produk()
     {
-        $dataProduk = Produk::select('ID','wip_kode','wip_warna','jenis','tipe_produk','nama_group','foto_produk')
-        ->where('wip_kode','<>','')
-        ->orderBy('wip_kode')
-        ->get();
-        $baseUrlImage = "https://trekkersshoes.com/assets/img/produk/";
+        // $dataProduk = Produk::select('ID','wip_kode','wip_warna','jenis','tipe_produk','nama_group','foto_produk')
+        // ->where('wip_kode','<>','')
+        // ->orderBy('wip_kode')
+        // ->get();
+
+        $dataProduk = Produk::paginate(20);
         // dd($dataProduk);
+        $baseUrlImage = "https://trekkersshoes.com/assets/img/produk/";
         return view('panel.pages.produk',[
             'dataProduk' => $dataProduk,
             'baseUrlImage' => $baseUrlImage
