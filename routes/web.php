@@ -28,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [LoginController::class, 'login_admin'])->name('login')->middleware('guest');
+Route::get('/', [LoginController::class, 'login_admin'])->name('login');
+Route::get('/login', [LoginController::class, 'login_admin'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate_admin']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
@@ -217,7 +218,7 @@ Route::group(['middleware' => ['role:Administrator|GudangJadi']], function () {
 
 // AKSES ALL USER
 Route::group(['middleware' => ['role:Administrator|WebAdmin|GudangJadi|KoordinatorReseller']], function () {
-  Route::get('/', [DashboardController::class, 'halaman_dashboard']);
+  Route::get('/dashboard', [DashboardController::class, 'halaman_dashboard']);
 
   Route::get('/laporan-penjualan-pelanggan', [LaporanController::class, 'laporan_penjualan_pelanggan']);
   Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);

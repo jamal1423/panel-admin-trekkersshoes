@@ -13,8 +13,8 @@ class SliderController extends Controller
     {
         try {            
             $dataSlider = Slider::all();
-            // $baseUrlImage = "https://panel.trekkersshoes.com/images/slider/";
-            $baseUrlImage = "https://trekkersshoes.com/assets/img/slider/";
+            // $baseUrlImage = "https://trekkersshoes.com/assets/img/slider/";
+            $baseUrlImage = "https://cloud.widayaintiplasma.com/trekkers/slider/";
             return view('panel.pages.setting-slider', [
                 'dataSlider' => $dataSlider,
                 'baseUrlImage' => $baseUrlImage
@@ -56,6 +56,8 @@ class SliderController extends Controller
                 'nama' => 'required',
                 'gambar' => 'required',
             ]);
+            
+            // dd($validatedData);
 
             if($request->hasFile('gambar')) {
                 $filenamewithextension = $request->file('gambar')->getClientOriginalName();
@@ -128,14 +130,16 @@ class SliderController extends Controller
 
     public function data_slider_delete(Request $request){
         try {
-            $gmbr = $request->oldImage;
+            // $gmbr = $request->oldImage;
             // $image_path = public_path() . '/slider/' . $gmbr;
             // if (File::exists($image_path)) {
             //     File::delete($image_path);
             // }
 
-            Storage::disk('ftp_slider')->delete($gmbr);
-
+            if ($request->oldImage) {
+                $gmbr = $request->oldImage;
+                Storage::disk('ftp_slider')->delete($gmbr);
+            }
             Slider::destroy($request->id);
             return redirect('/setting-slider')->with('slider-delete', 'Slider telah dihapus!');
         } catch (\Illuminate\Database\QueryException $e) {

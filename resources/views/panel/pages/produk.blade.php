@@ -61,51 +61,71 @@
               <div class="card card-custom gutter-b bg-white border-0">
                 <div class="card-body">
                   <div>
-                    <div class=" table-responsive" id="printableTable">
-                      <div id="productTable_wrapper" class="dataTables_wrapper no-footer">
-                      <table id="productTable" class="display dataTable no-footer" role="grid" aria-describedby="productTable_info">
-                        <thead class="text-body">
-                          <tr role="row">
-                            <th class="sorting_asc" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 76.3906px;">No.</th>
-                            <th class="sorting" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" style="width: 210.047px;">Artikel</th>
-                            <th class="sorting" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" style="width: 143.891px;">Detail</th>
-                            <th class="sorting" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" style="width: 125.656px;">Foto</th>
-                            <th class="no-sort sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 77px;"></th>
-                          </tr>
-                        </thead>
-                        <tbody class="kt-table-tbody text-dark">
-                          @foreach($dataProduk as $produk)
-                          <tr class="kt-table-row kt-table-row-level-0 odd" role="row">
-                            <td class="sorting_1">{{ $loop->iteration }}</td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a href="{{ url('/produk/detail/'.base64_encode($produk->ID)) }}"><span>{{ $produk->wip_kode.' '.$produk->wip_warna }}</span></a>
-                              </div>
-                            </td>
-                            <td>{{ $produk->jenis.' / '.$produk->tipe_produk.' / '.$produk->nama_group }}</td>
-                            <td>
-                              <img src="{{ $baseUrlImage.$produk->foto_produk }}" alt="Produk" width="50px">
-                            </td>
-                            <td>
-                              <div class="card-toolbar text-right">
-                                <button class="btn p-0 shadow-none" type="button" id="dropdowneditButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="svg-icon">
-                                    <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-three-dots text-body" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                      <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
-                                    </svg>
-                                  </span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdowneditButton">
-                                  <a class="dropdown-item" href="{{ url('/produk/detail/'.base64_encode($produk->ID)) }}"> <i class="fa fa-edit text-info"></i> Edit</a>
-                                  <a class="dropdown-item confirm-delete" title="Delete" href="#"> <i class="fa fa-trash text-danger"></i> Hapus</a>
+                    <div class="table-responsive" id="printableTable" style="overflow-x: hidden;">
+                      <div id="productTable_wrapper">
+                        <div class="row">
+                          <div class="dataTables_filter col-md-3">
+                            <input type="search" class="form-control" placeholder="Cari Artikel" aria-controls="orderTable">
+                          </div>
+                        </div>
+                        {{-- KALAU MAU PAKE DATATABLE TAMBAHKAN id="productTable" pada table --}}
+                        <table class="display dataTable no-footer" role="grid" aria-describedby="productTable_info">
+                          <thead class="text-body">
+                            <tr role="row">
+                              <th class="sorting_asc" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 30px">No.</th>
+                              <th class="sorting" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" style="width: 210.047px;">Artikel</th>
+                              <th class="sorting" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" style="width: 143.891px;">Detail</th>
+                              <th class="sorting" tabindex="0" aria-controls="productTable" rowspan="1" colspan="1" style="width: 125.656px;">Foto</th>
+                              <th class="no-sort sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 77px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody class="kt-table-tbody text-dark">
+                            @forelse($dataProduk as $key=>$produk)
+                            <tr class="kt-table-row kt-table-row-level-0 odd" role="row">
+                              <td class="sorting_1">{{ $dataProduk->firstItem()+$key }}</td>
+                              <td>
+                                <div class="d-flex align-items-center">
+                                  <a href="{{ url('/produk/detail/'.base64_encode($produk->ID)) }}"><span>{{ $produk->wip_kode.' '.$produk->wip_warna }}</span></a>
                                 </div>
-                                </div>
-                            </td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
+                              </td>
+                              <td>{{ $produk->jenis.' / '.$produk->tipe_produk.' / '.$produk->nama_group }}</td>
+                              <td>
+                                @if($produk->foto_produk == '')
+                                  <img src="{{ asset('gambar-umum/no-image.jpg') }}" alt="Produk" width="50px">
+                                @else
+                                  <img src="{{ $baseUrlImage.$produk->foto_produk }}" alt="Produk" width="50px">
+                                @endif
+                              </td>
+                              <td>
+                                <div class="card-toolbar text-right">
+                                  <button class="btn p-0 shadow-none" type="button" id="dropdowneditButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="svg-icon">
+                                      <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-three-dots text-body" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                                      </svg>
+                                    </span>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdowneditButton">
+                                    <a class="dropdown-item" href="{{ url('/produk/detail/'.base64_encode($produk->ID)) }}"> <i class="fa fa-edit text-info"></i> Edit</a>
+                                    <a class="dropdown-item confirm-delete" title="Delete" href="#"> <i class="fa fa-trash text-danger"></i> Hapus</a>
+                                  </div>
+                                  </div>
+                              </td>
+                            </tr>
+                            @empty
+                            <tr>
+                              <td colspan="5">Data tidak ditemukan.</td>
+                            </tr>
+                            @endforelse
+                          </tbody>
+                        </table>
+
+                        <div class="dataTables_paginate paging_simple_numbers mt-5" id="orderTable_paginate">
+                          {{ $dataProduk->links('pagination::bootstrap-5') }}
+                        </div>
+                      </div>
                     </div>
+
                   </div>
                 </div>
               </div>

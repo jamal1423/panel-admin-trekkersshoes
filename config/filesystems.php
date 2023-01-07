@@ -56,20 +56,30 @@ return [
             'throw' => false,
         ],
 
-        'ftp_slider' => [
+        'sftp_slider' => [
             'driver' => 'sftp',
             'host' => env('FTP_HOST'),
+            'port' => 22,
             'username' => env('FTP_USERNAME_SLIDER'),
             'password' => env('FTP_PASSWORD_SLIDER'),
+            'privateKey' => '/home/trekkers/.ssh/id_rsa',
+            'passphrase' => '___bissMill4h!!!___',
             'root' => '/',
-            // 'ignorePassiveAddress' => true, 
-            // 'port' => 22,
-            // 'visibility' => 'public',
-            // 'permPublic' => 0755,
+            'timeout' => 30,
 
             // Settings for SSH key based authentication...
-            'privateKey' => '/home/trekkers/.ssh/id_rsa.pub',
-            'password' => '___bissMill4h!!!___',
+            // 'privateKey' => '/home/trekkers/.ssh/id_rsa.pub',
+            // 'password' => '___bissMill4h!!!___',
+        ],
+
+        'ftp_slider' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME_CLOUD'),
+            'password' => env('FTP_PASSWORD_CLOUD'),
+            'root' => '/trekkers/slider/',
+            'ignorePassiveAddress' => true, 
+            'port' => 21,            
         ],
         
         'ftp_produk' => [

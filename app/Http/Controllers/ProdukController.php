@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,8 +18,9 @@ class ProdukController extends Controller
         // ->orderBy('wip_kode')
         // ->get();
 
-        $dataProduk = Produk::paginate(20);
-        // dd($dataProduk);
+        // $dataProduk = Produk::select(DB::raw('IF((tbl_produk.foto_produk=""), "") as foto_kosong'))
+        $dataProduk = Produk::orderByRaw("CASE WHEN foto_produk='' THEN foto_produk='' END DESC")->paginate(20);
+        
         $baseUrlImage = "https://trekkersshoes.com/assets/img/produk/";
         return view('panel.pages.produk',[
             'dataProduk' => $dataProduk,
