@@ -150,8 +150,16 @@ Route::group(['middleware' => 'role:Administrator'], function () {
 // AKSES ADMINISTRATOR DAN WEB-ADMIN
 Route::group(['middleware' => ['role:Administrator|WebAdmin']], function () {
   Route::get('/produk-all', [ProdukController::class, 'halaman_produk']);
+  Route::post('/produk-cari', [ProdukController::class, 'halaman_produk']);
+  Route::get('/produk-cari', [ProdukController::class, 'halaman_produk']);
+
   Route::get('/produk-baru', [ProdukController::class, 'halaman_produk_baru']);
+  Route::post('/produk-baru-cari', [ProdukController::class, 'halaman_produk_baru']);
+  Route::get('/produk-baru-cari', [ProdukController::class, 'halaman_produk_baru']);
+
   Route::get('/produk-populer', [ProdukController::class, 'halaman_produk_populer']);
+  Route::post('/produk-populer-cari', [ProdukController::class, 'halaman_produk_populer']);
+  Route::get('/produk-populer-cari', [ProdukController::class, 'halaman_produk_populer']);
   
   Route::get('/produk/detail/{id}', [ProdukController::class, 'halaman_produk_detail']);
   Route::patch('/produk-update', [ProdukController::class, 'halaman_produk_update']);

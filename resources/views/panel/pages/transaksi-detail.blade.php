@@ -107,7 +107,7 @@
                           <h5 class="font-size-h5 mt-3 mb-0 font-size-bold text-body">
                             Bukti Pembayaran : <span class="text-dark font-size-base">
                               @if($detail1->bukti_bayar != "")
-                              <a href="{{ asset('bukti-bayar/'.$detail1->bukti_bayar) }}" class="text-info" onclick="window.open(this.href, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
+                              <a href="{{ $baseUrlImage.$detail1->bukti_bayar }}" class="text-info" onclick="window.open(this.href, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
                                 Lihat Bukti Bayar
                               </a>
                               @endif
@@ -281,7 +281,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <?php $grandTOTAL = 0; ?>
+                              <?php $grandTOTAL = 0; $subTOTAL=0;?>
                               @foreach($detailTransaksi as $detail2)
                               <tr class="row">
                                 <td class="col-lg-4 col-4">{{ $detail2->wip_kode.' '.$detail2->warna }}</td>
@@ -291,14 +291,19 @@
                                 <td class="col-lg-2 col-3 text-right">{{ "Rp. ".number_format($detail2->harga * $detail2->qty) }}</td>
                               </tr>
                               <?php
-                                $tmp_value = $detail2->qty * $detail2->harga;
+                                $r_poin=$detail2->r_poin;
+                                $r_wallet=$detail2->r_wallet;
+                                $konversi=$r_poin*$poin->tkr_poin_rp;
+                                $tmp_value_sub = $detail2->qty * $detail2->harga;
+                                $subTOTAL += $tmp_value_sub;
+                                $tmp_value = ($detail2->qty * $detail2->harga)-$konversi-$r_wallet;
                                 $grandTOTAL += $tmp_value;
                               ?>
                               @endforeach
                             </tbody>
                           </table>
                           <div class="row justify-content-end" style="margin-right: -31px;">
-                            <div class="col-6 col-md-3 justify-content-end">
+                            <div class="col-6 col-md-4 justify-content-end">
                               <div>
                                 <table class="table right-table">
                                   <tbody>
@@ -306,7 +311,7 @@
                                       <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark">
                                           TOTAL
                                       </th>
-                                      <td class="border-0 justify-content-end d-flex text-dark font-size-base text-right font-size-bold">{{ "Rp. ".number_format($grandTOTAL) }}</td>
+                                      <td class="border-0 justify-content-end d-flex text-dark font-size-base text-right font-size-bold">{{ "Rp. ".number_format($subTOTAL) }}</td>
                                     </tr>
                                     <tr class="d-flex align-items-center justify-content-between">
                                       <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark">
@@ -314,6 +319,22 @@
                                       </th>
                                       <td class="border-0 justify-content-end d-flex text-success font-size-bold font-size-base text-right">{{ "(+) Rp. ".number_format($detail2->ongkir) }}</td>
                                     </tr>
+                                    @if($r_poin > 0)
+                                      <tr class="d-flex align-items-center justify-content-between">
+                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark">
+                                            PAKAI POIN ({{ $r_poin }})
+                                        </th>
+                                        <td class="border-0 justify-content-end d-flex text-danger font-size-bold font-size-base text-right">{{ "(-) Rp. ".number_format($konversi) }}</td>
+                                      </tr>
+                                    @endif
+                                    @if($r_wallet > 0)
+                                      <tr class="d-flex align-items-center justify-content-between">
+                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark">
+                                            PAKAI SALDO
+                                        </th>
+                                        <td class="border-0 justify-content-end d-flex text-danger font-size-bold font-size-base text-right">{{ "(-) Rp. ".number_format($r_wallet) }}</td>
+                                      </tr>
+                                    @endif
                                     <tr class="d-flex align-items-center justify-content-between item-price">
                                       <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark">
                                           TOTAL BAYAR

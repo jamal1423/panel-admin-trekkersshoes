@@ -11,44 +11,80 @@ use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
-    public function halaman_produk()
+    public function halaman_produk(Request $request)
     {
-        // $dataProduk = Produk::select('ID','wip_kode','wip_warna','jenis','tipe_produk','nama_group','foto_produk')
-        // ->where('wip_kode','<>','')
-        // ->orderBy('wip_kode')
-        // ->get();
+        try{
+            if($request->artikel){
+                $dataProduk = Produk::where('wip_kode', 'like', '%' . $request->artikel . '%')->get();
+                $singleProduk = "yes";
+            } else {
+                $dataProduk = Produk::orderByRaw("CASE WHEN foto_produk='' THEN foto_produk='' END DESC")
+                ->orderBy('wip_kode')->paginate(20);
+                $singleProduk = "no";
+            }
+            
+            $baseUrlImage = "https://cloud.widayaintiplasma.com/trekkers/produk/";
+            return view('panel.pages.produk',[
+                'dataProduk' => $dataProduk,
+                'baseUrlImage' => $baseUrlImage,
+                'singleProduk' => $singleProduk
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/produk-all')->with('produk-error', 'Error, Ulangi proses!');
+        }
+    }
+    
+    public function halaman_produk_baru(Request $request)
+    {
+        try{
+            if($request->artikel){
+                $dataProdukBaru = Produk::where('wip_kode', 'like', '%' . $request->artikel . '%')
+                ->where('produk_baru','=','Produk Baru')
+                ->get();
+                $singleProduk = "yes";
+            } else {
+                $dataProdukBaru = Produk::where('wip_kode','<>','')
+                ->where('produk_baru','=','Produk Baru')
+                ->orderBy('nama')
+                ->paginate(20);
+                $singleProduk = "no";
+            }
 
-        // $dataProduk = Produk::select(DB::raw('IF((tbl_produk.foto_produk=""), "") as foto_kosong'))
-        $dataProduk = Produk::orderByRaw("CASE WHEN foto_produk='' THEN foto_produk='' END DESC")->paginate(20);
-        
-        $baseUrlImage = "https://trekkersshoes.com/assets/img/produk/";
-        return view('panel.pages.produk',[
-            'dataProduk' => $dataProduk,
-            'baseUrlImage' => $baseUrlImage
-        ]);
+            $baseUrlImage = "https://cloud.widayaintiplasma.com/trekkers/produk/";
+            return view('panel.pages.produk-baru',[
+                'dataProdukBaru' => $dataProdukBaru,
+                'baseUrlImage' => $baseUrlImage,
+                'singleProduk' => $singleProduk
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/produk-baru')->with('produk-error', 'Error, Ulangi proses!');
+        }
     }
     
-    public function halaman_produk_baru()
+    public function halaman_produk_populer(Request $request)
     {
-        $dataProdukBaru = Produk::where('wip_kode','<>','')
-        ->where('produk_baru','=','Produk Baru')
-        ->orderBy('nama')
-        ->get();
-        // dd($dataProdukBaru);
-        return view('panel.pages.produk-baru',[
-            'dataProdukBaru' => $dataProdukBaru
-        ]);
-    }
-    
-    public function halaman_produk_populer()
-    {
-        $dataProdukPopuler = Produk::where('wip_kode','<>','')
-        ->where('produk_populer','=','Produk Populer')
-        ->orderBy('nama')
-        ->get();
-        return view('panel.pages.produk-populer',[
-            'dataProdukPopuler' => $dataProdukPopuler
-        ]);
+        try{
+            if($request->artikel){
+                $dataProdukPopuler = Produk::where('wip_kode', 'like', '%' . $request->artikel . '%')
+                ->where('produk_populer','=','Produk Populer')
+                ->get();
+                $singleProduk = "yes";
+            } else {
+                $dataProdukPopuler = Produk::where('wip_kode','<>','')
+                ->where('produk_populer','=','Produk Populer')
+                ->orderBy('nama')
+                ->paginate(20);
+                $singleProduk = "no";
+            }
+            $baseUrlImage = "https://cloud.widayaintiplasma.com/trekkers/produk/";
+            return view('panel.pages.produk-populer',[
+                'dataProdukPopuler' => $dataProdukPopuler,
+                'baseUrlImage' => $baseUrlImage,
+                'singleProduk' => $singleProduk
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/produk-baru')->with('produk-error', 'Error, Ulangi proses!');
+        }
     }
     
     public function halaman_produk_detail($id)
@@ -56,7 +92,8 @@ class ProdukController extends Controller
         $produkDetail = Produk::where('ID','=',base64_decode($id))->get();
         // dd($produkDetail);
         $dataGroup = Group::all();
-        $baseUrlImage = "https://trekkersshoes.com/assets/img/produk-detail/";
+        // $baseUrlImage = "https://trekkersshoes.com/assets/img/produk-detail/";
+        $baseUrlImage = "https://cloud.widayaintiplasma.com/trekkers/produk-detail/";
         return view('panel.pages.produk-detail',[
             'produkDetail' => $produkDetail,
             'dataGroup' => $dataGroup,

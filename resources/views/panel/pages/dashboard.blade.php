@@ -20,6 +20,7 @@
       <div class="row">
         <div class="col-12">
           <div class="row">
+            @foreach($dataJenisMember as $jenisMember)
             <div class="col-lg-6 col-xl-3">
               <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-primary">
                 <div class="card-body">
@@ -30,12 +31,13 @@
                         <span class="counter" data-target="400">0</span>
                       </span>
                     </div>
-                    <div class="text-black-50 mt-3">STOCKIST</div>
+                    <div class="text-black-50 mt-3">{{ $jenisMember->jns_member }}</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-xl-3">
+            @endforeach
+            {{-- <div class="col-lg-6 col-xl-3">
               <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle theme-circle-secondary">
                 <div class="card-body">
                   <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
@@ -124,7 +126,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
           
           <div class="row">

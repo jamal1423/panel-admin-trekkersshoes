@@ -17,7 +17,7 @@
             </span>
           </a>
         </li>
-        <li class="nav-item @if(Request::is('produk-all') || Request::is('produk-baru') || Request::is('produk-populer') || Request::is('produk/*')) active @else @endif">
+        <li class="nav-item @if(Request::is('produk-all') || Request::is('produk-cari') || Request::is('produk-baru') || Request::is('produk-baru-cari') || Request::is('produk-populer') || Request::is('produk-populer-cari') || Request::is('produk/*')) active @else @endif">
           <a  class="nav-link" data-toggle="collapse"  href="javascript:void(0)" data-target="#catalog" role="button" aria-expanded="false" aria-controls="catalog">
             <span class="svg-icon nav-icon">
               <i class="fas fa-boxes font-size-h4"></i>
@@ -25,7 +25,7 @@
             <span class="nav-text">Produk</span>
             <i class="fas fa-chevron-right fa-rotate-90"></i>
           </a>
-          <div class="collapse nav-collapse @if(Request::is('produk-all') || Request::is('produk-baru') || Request::is('produk-populer') || Request::is('produk/*')) show @else @endif" id="catalog" data-parent="#accordion">
+          <div class="collapse nav-collapse @if(Request::is('produk-all') || Request::is('produk-cari') || Request::is('produk-baru') || Request::is('produk-baru-cari') || Request::is('produk-populer') || Request::is('produk-populer-cari') || Request::is('produk/*')) show @else @endif" id="catalog" data-parent="#accordion">
             <div id="accordion1">
               <ul class="nav flex-column">
                 <li class="nav-item">
@@ -424,7 +424,7 @@
             </span>
           </a>
         </li>
-        <li class="nav-item @if(Request::is('produk-all') || Request::is('produk-baru') || Request::is('produk-populer') || Request::is('produk/*')) active @else @endif">
+        <li class="nav-item @if(Request::is('produk-all') || Request::is('produk-cari') || Request::is('produk-baru') || Request::is('produk-baru-cari') || Request::is('produk-populer') || Request::is('produk-populer-cari') || Request::is('produk/*')) active @else @endif">
           <a  class="nav-link" data-toggle="collapse"  href="javascript:void(0)" data-target="#catalog" role="button" aria-expanded="false" aria-controls="catalog">
             <span class="svg-icon nav-icon">
               <i class="fas fa-boxes font-size-h4"></i>
@@ -432,7 +432,7 @@
             <span class="nav-text">Produk</span>
             <i class="fas fa-chevron-right fa-rotate-90"></i>
           </a>
-          <div class="collapse nav-collapse @if(Request::is('produk-all') || Request::is('produk-baru') || Request::is('produk-populer') || Request::is('produk/*')) show @else @endif" id="catalog" data-parent="#accordion">
+          <div class="collapse nav-collapse @if(Request::is('produk-all') || Request::is('produk-cari') || Request::is('produk-baru') || Request::is('produk-baru-cari') || Request::is('produk-populer') || Request::is('produk-populer-cari') || Request::is('produk/*')) show @else @endif" id="catalog" data-parent="#accordion">
             <div id="accordion1">
               <ul class="nav flex-column">
                 <li class="nav-item">

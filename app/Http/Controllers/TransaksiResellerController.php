@@ -95,10 +95,12 @@ class TransaksiResellerController extends Controller
         ->count();
         
         $dataPoin = SettingPoin::all();
+        $baseUrlImage = "https://trekkersshoes.com/assets/img/bukti-bayar/";
         return view('panel.pages.transaksi-detail',[
             'detailTransaksi' => $detailTransaksi,
             'dataPoin' => $dataPoin,
-            'countID' => $countID
+            'countID' => $countID,
+            'baseUrlImage' => $baseUrlImage
         ]);
     }
 
