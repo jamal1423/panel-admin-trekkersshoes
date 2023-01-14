@@ -4,8 +4,8 @@
     <div id="accordion">
       <ul class="nav flex-column">
         @role('Administrator')
-        <li class="nav-item {{Request::is('/') ? 'active' : '' }}">
-          <a href="{{ url('/') }}" class="nav-link">
+        <li class="nav-item {{Request::is('dashboard') ? 'active' : '' }}">
+          <a href="{{ url('/dashboard') }}" class="nav-link">
             <span class="svg-icon nav-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -411,8 +411,8 @@
         @endrole
 
         @role('WebAdmin')
-        <li class="nav-item {{Request::is('/') ? 'active' : '' }}">
-          <a href="{{ url('/') }}" class="nav-link">
+        <li class="nav-item {{Request::is('dashboard') ? 'active' : '' }}">
+          <a href="{{ url('/dashboard') }}" class="nav-link">
             <span class="svg-icon nav-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -674,8 +674,8 @@
         @endrole
 
         @role('GudangJadi')
-        <li class="nav-item {{Request::is('/') ? 'active' : '' }}">
-          <a href="{{ url('/') }}" class="nav-link">
+        <li class="nav-item {{Request::is('dashboard') ? 'active' : '' }}">
+          <a href="{{ url('/dashboard') }}" class="nav-link">
             <span class="svg-icon nav-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -799,8 +799,8 @@
         @endrole
 
         @role('KoordinatorReseller')
-        <li class="nav-item {{Request::is('/') ? 'active' : '' }}">
-          <a href="{{ url('/') }}" class="nav-link">
+        <li class="nav-item {{Request::is('dashboard') ? 'active' : '' }}">
+          <a href="{{ url('/dashboard') }}" class="nav-link">
             <span class="svg-icon nav-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>

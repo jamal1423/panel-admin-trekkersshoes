@@ -20,7 +20,7 @@
       <div class="row">
         <div class="col-12">
           <div class="row">
-            @foreach($dataJenisMember as $jenisMember)
+            @foreach($totalMember as $dtMember)
             <div class="col-lg-6 col-xl-3">
               <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-primary">
                 <div class="card-body">
@@ -28,105 +28,15 @@
                   <div class="mt-3">
                     <div class="d-flex align-items-center">
                       <span class="text-dark font-weight-bold font-size-h1 mr-3">
-                        <span class="counter" data-target="400">0</span>
+                        <span class="counter" data-target="{{ $dtMember->totMember }}">{{ $dtMember->totMember }}</span>
                       </span>
                     </div>
-                    <div class="text-black-50 mt-3">{{ $jenisMember->jns_member }}</div>
+                    <div class="text-black-50 mt-3">{{ $dtMember->jns_member }}</div>
                   </div>
                 </div>
               </div>
             </div>
             @endforeach
-            {{-- <div class="col-lg-6 col-xl-3">
-              <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle theme-circle-secondary">
-                <div class="card-body">
-                  <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
-                  <div class="mt-3">
-                    <div class="d-flex align-items-center">
-                      <span class="text-dark font-weight-bold font-size-h1 mr-3">
-                        <span class="counter" data-target="600">0</span>
-                      </span>
-                    </div>
-                    <div class="text-black-50 mt-3">PEMKA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-3">
-              <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-success">
-                <div class="card-body">
-                  <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
-                  <div class="mt-3">
-                    <div class="d-flex align-items-center">
-                      <span class="text-dark font-weight-bold font-size-h1 mr-3">
-                        <span class="counter" data-target="1000">0</span>
-                      </span>
-                    </div>
-                    <div class="text-black-50 mt-3">END-USER</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-3">
-              <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-info">
-                <div class="card-body">
-                  <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
-                  <div class="mt-3">
-                    <div class="d-flex align-items-center">
-                      <span class="text-dark font-weight-bold font-size-h1 mr-3">
-                        <span class="counter" data-target="6800">0</span>
-                      </span>
-                    </div>
-                    <div class="text-black-50 mt-3">UBAYA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-3">
-              <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-info">
-                <div class="card-body">
-                  <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
-                  <div class="mt-3">
-                    <div class="d-flex align-items-center">
-                      <span class="text-dark font-weight-bold font-size-h1 mr-3">
-                        <span class="counter" data-target="6800">0</span>
-                      </span>
-                    </div>
-                    <div class="text-black-50 mt-3">UKM</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-3">
-              <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-info">
-                <div class="card-body">
-                  <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
-                  <div class="mt-3">
-                    <div class="d-flex align-items-center">
-                      <span class="text-dark font-weight-bold font-size-h1 mr-3">
-                        <span class="counter" data-target="6800">0</span>
-                      </span>
-                    </div>
-                    <div class="text-black-50 mt-3">FORKAS</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-3">
-              <div class="card card-custom gutter-b bg-white border-0 theme-circle theme-circle-info">
-                <div class="card-body">
-                  <h3 class="text-body font-weight-bold"><i class="fas fa-user-friends"></i></h3>
-                  <div class="mt-3">
-                    <div class="d-flex align-items-center">
-                      <span class="text-dark font-weight-bold font-size-h1 mr-3">$
-                        <span class="counter" data-target="6800">0</span>
-                      </span>
-                    </div>
-                    <div class="text-black-50 mt-3">HAIRSTAR</div>
-                  </div>
-                </div>
-              </div>
-            </div> --}}
           </div>
           
           <div class="row">
@@ -134,89 +44,38 @@
               <div class="card card-custom gutter-b bg-white border-0" >
                 <div class="card-header align-items-center  border-0">
                   <div class="card-title mb-0">
-                    <h3 class="card-label mb-0 font-weight-bold text-body">New Orders
+                    <h3 class="card-label mb-0 font-weight-bold text-body">Rekap Transaksi Pelanggan
                     </h3>
-                  </div>
-                  <div class="card-toolbar">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton3"
-                      data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false">
-                      <span class="svg-icon">
-                        <svg width="20px" height="20px" viewBox="0 0 16 16"
-                          class="bi bi-three-dots text-body" fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                        </svg>
-                      </span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right"
-                      aria-labelledby="dropdownMenuButton3">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
                   </div>
                 </div>
                 <div class="card-body" >
                   <div >
                     <div class="kt-table-content table-responsive">
-                      <table id="myTable" class="table ">
-                        
+                      {{-- <table id="myTable" class="table "> --}}
+                      <table class="table ">
                         <thead class="kt-table-thead text-body">
                           <tr>
-                            <th class="kt-table-cell">Order ID</th>
-                            <th class="kt-table-cell">Customer Name</th>
-                            <th class="kt-table-cell">Amount</th>
+                            <th class="kt-table-cell">Jenis Pelanggan</th>
+                            <th class="kt-table-cell">
+                              <div class="text-center">Total Transaksi</div>
+                            </th>
                             <th class="kt-table-cell">
                               <div class="text-right">Status</div>
                             </th>
                           </tr>
                         </thead>
                         <tbody class="kt-table-tbody text-dark">
+                          @foreach($totalTransaksi as $transaksi)
                           <tr class="kt-table-row kt-table-row-level-0">
-                            <td class="kt-table-cell">#12425</td>
+                            <td class="kt-table-cell">{{ $transaksi->jns_member }}</td>
+                            <td class="kt-table-cell text-center">{{ $transaksi->totOrder }}</td>
                             <td class="kt-table-cell">
-                              <div class="d-flex align-items-center">
-                                <span
-                                  class="ml-2">Clayton Bates</span></div>
-                            </td>
-                            
-                            <td class="kt-table-cell">$137.00</td>
-                            <td class="kt-table-cell">
-                              <div class="text-right"><span
-                                  class="mr-0 text-success">Approved</span>
+                              <div class="text-right">
+                                <span class="mr-0 badge badge-success">{{ $transaksi->status }}</span>
                               </div>
                             </td>
                           </tr>
-                          <tr class="kt-table-row kt-table-row-level-0">
-                            <td class="kt-table-cell">#12425</td>
-                            <td class="kt-table-cell">
-                              <div class="d-flex align-items-center"><span
-                                  class="ml-2">Gabriel Frazier</span>
-                              </div>
-                            </td>
-                            <td class="kt-table-cell">$322.00</td>
-                            <td class="kt-table-cell">
-                              <div class="text-right"><span
-                                  class="mr-0 text-success">Approved</span>
-                              </div>
-                            </td>
-                          </tr>
-                          
-                          <tr class="kt-table-row kt-table-row-level-0">
-                            <td class="kt-table-cell">#12425</td>
-                            <td class="kt-table-cell">
-                              <div class="d-flex align-items-center"><span
-                                  class="ml-2">Troy Alexander</span></div>
-                            </td>
-                            <td class="kt-table-cell">$241.00</td>
-                            <td class="kt-table-cell">
-                              <div class="text-right"><span
-                                  class="mr-0 text-success">Approved</span>
-                              </div>
-                            </td>
-                          </tr>
+                          @endforeach
                         </tbody>
                       </table>
                     </div>
@@ -225,6 +84,95 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="card card-custom gutter-b bg-white border-0" >
+                <div class="card-header align-items-center  border-0">
+                  <div class="card-title mb-0">
+                    <h3 class="card-label mb-0 font-weight-bold text-body">Rekap Produk Terlaris Reseller
+                    </h3>
+                  </div>
+                </div>
+                <div class="card-body" >
+                  <div >
+                    <div class="kt-table-content table-responsive">
+                      {{-- <table id="myTable" class="table "> --}}
+                      <table class="table ">
+                        <thead class="kt-table-thead text-body">
+                          <tr>
+                            <th class="kt-table-cell">No</th>
+                            <th class="kt-table-cell">Artikel</th>
+                            <th class="kt-table-cell">
+                              <div class="text-center">Total Qty</div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="kt-table-tbody text-dark">
+                          @foreach($produkTerlarisReseller as $terlarisReseller)
+                          <tr class="kt-table-row kt-table-row-level-0">
+                            <td class="kt-table-cell">{{ $loop->iteration }}</td>
+                            <td class="kt-table-cell">{{ $terlarisReseller->wip_kode.' / '.$terlarisReseller->warna.' / '.$terlarisReseller->ukuran }}</td>
+                            <td class="kt-table-cell">
+                              <div class="text-center">
+                                <span class="mr-0 badge badge-success">{{ $terlarisReseller->totQty }}</span>
+                              </div>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="card card-custom gutter-b bg-white border-0" >
+                <div class="card-header align-items-center  border-0">
+                  <div class="card-title mb-0">
+                    <h3 class="card-label mb-0 font-weight-bold text-body">Rekap Produk Terlaris Stockist
+                    </h3>
+                  </div>
+                </div>
+                <div class="card-body" >
+                  <div >
+                    <div class="kt-table-content table-responsive">
+                      {{-- <table id="myTable" class="table "> --}}
+                      <table class="table ">
+                        <thead class="kt-table-thead text-body">
+                          <tr>
+                            <th class="kt-table-cell">No</th>
+                            <th class="kt-table-cell">Artikel</th>
+                            <th class="kt-table-cell">
+                              <div class="text-center">Total Qty</div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="kt-table-tbody text-dark">
+                          @foreach($produkTerlarisStockist as $terlarisStockist)
+                          <tr class="kt-table-row kt-table-row-level-0">
+                            <td class="kt-table-cell">{{ $loop->iteration }}</td>
+                            <td class="kt-table-cell">{{ $terlarisStockist->wip_kode.' / '.$terlarisStockist->warna.' / '.$terlarisStockist->ukuran }}</td>
+                            <td class="kt-table-cell">
+                              <div class="text-center">
+                                <span class="mr-0 badge badge-success">{{ $terlarisStockist->totQty }}</span>
+                              </div>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
