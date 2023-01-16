@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\MasterPelanggan;
+use App\Models\ModelHasRole;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,56 @@ class AdminController extends Controller
         return view('panel.pages.admin-trekkers', [
             'dataAdmin' => $dataAdmin,
             'dataGroupPelanggan' => $dataGroupPelanggan
+        ]);
+    }
+
+    public function profil(){
+        try{
+            return view('panel.pages.profil');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard')->with('profil-error', 'Error, Ulangi proses!');
+        }
+    }
+
+    public function profil_update(Request $request){
+        try {
+            if($request->password){
+                $validatedData = $request->validate([
+                    'username' => 'required',
+                    'nama' => 'required',
+                    'password' => ['required', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
+                    'hak_akses' => 'required',
+                    'adm_mitra' => ''
+                ]);
+                $validatedData['password'] = bcrypt($validatedData['password']);
+
+                User::where('user_id', $request->user_id)
+                ->update($validatedData);
+            } else {
+                $validatedData = $request->validate([
+                    'username' => 'required',
+                    'nama' => 'required',
+                    'password' => '',
+                    'hak_akses' => 'required',
+                    'adm_mitra' => ''
+                ]);
+                
+                User::where('user_id', $request->user_id)
+                ->update($validatedData);
+            }
+            
+            return redirect('/profil')->with('profil-edit', 'Sukses, Data berhasil diupdate!'); 
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/profil')->with('profil-error', 'Error, Ulangi proses!');
+        }
+    }
+
+    public function get_data_profil($user_id){
+        $getUser = base64_decode($user_id);
+        // $dataAdmin = User::where('user_id', $getUser)->first();
+        $dataAdmin = User::findOrFail($getUser);
+        return response()->json([
+            'dataAdmin' => $dataAdmin,
         ]);
     }
 
@@ -58,15 +110,15 @@ class AdminController extends Controller
                     $admin = User::create($validatedData);
                     $admin->assignRole('Administrator');
                 }
-                if($request->hak_akses == "Admin Webstore"){
+                if($request->hak_akses == "WebAdmin"){
                     $admin = User::create($validatedData);
                     $admin->assignRole('WebAdmin');
                 }
-                if($request->hak_akses == "Koordinator-Corp"){
+                if($request->hak_akses == "KoordinatorReseller"){
                     $admin = User::create($validatedData);
                     $admin->assignRole('KoordinatorReseller');
                 }
-                if($request->hak_akses == "Gudang Jadi"){
+                if($request->hak_akses == "GudangJadi"){
                     $admin = User::create($validatedData);
                     $admin->assignRole('GudangJadi');
                 }
@@ -86,7 +138,17 @@ class AdminController extends Controller
                 'adm_mitra' => ''
             ]);
 
-            // dd($validatedData);
+            $cekRole = Role::where('name','=',$request->hak_akses)->get();
+            
+            foreach($cekRole as $role){
+                $idRole = $role->id;
+            }
+
+            ModelHasRole::where('model_id', $request->idEdit)
+            ->update([
+                'role_id' => $idRole
+            ]);
+
             User::where('user_id', $request->idEdit)
                 ->update($validatedData);
             return redirect('/admin-trekkers')->with('admin-edit', 'Sukses, Data berhasil diupdate!'); 
@@ -98,6 +160,7 @@ class AdminController extends Controller
     public function admin_trekkers_delete(Request $request){
         try {
             User::destroy($request->id);
+            ModelHasRole::where('model_id','=',$request->id)->delete();
             return redirect('/admin-trekkers')->with('admin-delete', 'Sukses, Data berhasil dihapus!'); 
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/admin-trekkers')->with('admin-error', 'Error, Ulangi proses!');

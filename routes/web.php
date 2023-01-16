@@ -232,4 +232,8 @@ Route::group(['middleware' => ['role:Administrator|WebAdmin|GudangJadi|Koordinat
   Route::get('/laporan-penjualan-trekkers-link', [LaporanController::class, 'laporan_penjualan_trekkers_link']);
   Route::get('/laporan-fee-koordinator', [LaporanController::class, 'laporan_fee_koordinator']);
   Route::get('/laporan-produk-favorit', [LaporanController::class, 'laporan_produk_favorit']);
+
+  Route::get('/profil', [AdminController::class, 'profil']);
+  Route::get('/get-profil/{user_id}', [AdminController::class, 'get_data_profil']);
+  Route::patch('/profil-update', [AdminController::class, 'profil_update']);
 });

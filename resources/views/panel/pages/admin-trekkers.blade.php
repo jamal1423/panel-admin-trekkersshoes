@@ -107,9 +107,9 @@
                       <label>Hak Akses</label>
                       <select class="js-example-basic-single js-states form-control bg-transparent select2-hidden-accessible @error('hak_akses') is-invalid @enderror" name="hak_akses" tabindex="-1" aria-hidden="true">
                         <option value="Administrator">Administrator</option>
-                        <option value="Admin Webstore">Admin Webstore</option>
-                        <option value="Gudang Jadi">Gudang Jadi</option>
-                        <option value="Koordinator-Corp">Koordinator-Corp</option>
+                        <option value="WebAdmin">Admin Webstore</option>
+                        <option value="GudangJadi">Gudang Jadi</option>
+                        <option value="KoordinatorReseller">Koordinator-Corp</option>
                       </select>
                       @error('hak_akses')
                         <div class="form-text text-danger">{{ $message }}</div>
@@ -384,9 +384,9 @@
         selectElement.empty();
         selectElement.append(`
         <option value="Administrator">Administrator</option>
-        <option value="Admin Webstore">Admin Webstore</option>
-        <option value="Gudang Jadi">Gudang Jadi</option>
-        <option value="Koordinator-Corp">Koordinator-Corp</option>
+        <option value="WebAdmin">Admin Webstore</option>
+        <option value="GudangJadi">Gudang Jadi</option>
+        <option value="KoordinatorReseller">Koordinator-Corp</option>
         `)
         $("#hak_akses_edit option[value='" + dataAdmin.hak_akses + "']").attr("selected", "selected");
 
