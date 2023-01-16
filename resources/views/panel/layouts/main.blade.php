@@ -36,7 +36,7 @@
 						<!--begin::Logo-->
 	
 						<a href="{{ url('/') }}" class="brand-logo">
-							<img class="brand-image" style="height: 25px;" alt="Logo" src="{{ asset('gambar-umum/logo.png') }}" />
+							<img class="brand-image" style="height: 20px;" alt="Logo" src="{{ asset('gambar-umum/logo.png') }}" />
 							<span class="brand-text">
 								<img style="height: 50px;" alt="Logo" src="{{ asset('gambar-umum/logo.png') }}"/>
 							</span>
