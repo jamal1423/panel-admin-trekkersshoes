@@ -144,10 +144,19 @@ class AdminController extends Controller
                 $idRole = $role->id;
             }
 
-            ModelHasRole::where('model_id', $request->idEdit)
-            ->update([
-                'role_id' => $idRole
-            ]);
+            $cekHasRole = ModelHasRole::where('model_id','=', $request->idEdit)->count();
+            if($cekHasRole > 0){
+                ModelHasRole::where('model_id', $request->idEdit)
+                ->update([
+                    'role_id' => $idRole
+                ]);
+            }else{
+                ModelHasRole::create([
+                    'role_id' => $idRole,
+                    'model_type' => 'App\Models\User',
+                    'model_id' => $request->idEdit,
+                ]);
+            }
 
             User::where('user_id', $request->idEdit)
                 ->update($validatedData);
