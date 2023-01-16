@@ -96,11 +96,11 @@
           <div class="form-group">
             <label>Username</label>
             <input type="hidden" name="user_id" id="id-edit">
-            <input type="text" name="username" class="form-control" id="username-edit" readonly>
+            <input type="text" name="username" value="{{ old('username') }}" class="form-control" id="username-edit" readonly>
           </div>
           <div class="form-group">
             <label>Nama</label>
-            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama-edit">
+            <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" id="nama-edit">
             @error('nama')
               <div class="form-text text-danger">{{ $message }}</div>
             @enderror
@@ -114,12 +114,12 @@
           </div>
           <div class="form-group">
             <label>Hak Akses</label>
-            <input type="text" name="hak_akses" class="form-control" id="hak-akses-edit" readonly>
+            <input type="text" name="hak_akses" value="{{ old('hak_akses') }}" class="form-control" id="hak-akses-edit" readonly>
           </div>
           @if(auth()->user()->adm_mitra != null)
           <div class="form-group">
             <label>Koordinator</label>
-            <input type="text" name="adm_mitra" class="form-control" id="adm-mitra-edit" readonly>
+            <input type="text" name="adm_mitra" value="{{ old('adm_mitra') }}" class="form-control" id="adm-mitra-edit" readonly>
           </div>
           @endif
           <button type="submit" class="btn btn-primary"> <i class="fa fa-upload"></i> Update</button>
