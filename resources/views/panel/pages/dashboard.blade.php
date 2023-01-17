@@ -173,6 +173,59 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-lg-12 col-xl-12">
+              <div class="card card-custom gutter-b bg-white border-0" >
+                <div class="card-header align-items-center  border-0">
+                  <div class="card-title mb-0">
+                    <h3 class="card-label mb-0 font-weight-bold text-body">Member Sering Login
+                    </h3>
+                  </div>
+                </div>
+                <div class="card-body" >
+                  <div >
+                    <div class="kt-table-content table-responsive">
+                      <table class="table ">
+                        <thead class="kt-table-thead text-body">
+                          <tr>
+                            <th class="kt-table-cell">No</th>
+                            <th class="kt-table-cell">Nama</th>
+                            <th class="kt-table-cell">Email</th>
+                            <th class="kt-table-cell">
+                              <div class="text-center">Terakhir Login</div>
+                            </th>
+                            <th class="kt-table-cell">
+                              <div class="text-center">Total Login</div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="kt-table-tbody text-dark">
+                          @foreach($logLogin as $login)
+                          <tr class="kt-table-row kt-table-row-level-0">
+                            <td class="kt-table-cell">{{ $loop->iteration }}</td>
+                            <td class="kt-table-cell">{{ ucwords($login->nama_depan.' '.$login->nama_belakang) }}</td>
+                            <td class="kt-table-cell">{{ $login->username }}</td>
+                            <td class="kt-table-cell">
+                              <div class="text-center">
+                                {{ date('d-m-Y H:i:s', strtotime($login->terakhir_login)) }}
+                              </div>
+                            </td>
+                            <td class="kt-table-cell">
+                              <div class="text-center">
+                                <span class="mr-0 badge badge-success">{{ $login->totLogin }}</span>
+                              </div>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

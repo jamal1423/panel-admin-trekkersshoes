@@ -1,12 +1,12 @@
 <div id="tc_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
   <a href="#" class="brand-logo">
-    <span class="brand-text"><img style="height: 25px;" alt="Logo" src="{{ asset('panel/assets/images/misc/logo.png') }}" /></span>
+    <span class="brand-text"><img style="height: 25px;" alt="Logo" src="{{ asset('gambar-umum/logo.png') }}" /></span>
   </a>
   
   <div class="d-flex align-items-center">       
-    <div class="posicon">
+    {{-- <div class="posicon">
       <a href="pos.html" class="btn btn-primary d-flex align-items-center justify-content-center white mr-2">POS</a>
-    </div>
+    </div> --}}
 
     <button class="btn p-0" id="tc_aside_mobile_toggle">
       <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-justify-right" fill="currentColor"

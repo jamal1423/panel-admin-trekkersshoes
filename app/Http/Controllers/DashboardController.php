@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LogLogin;
 use App\Models\Member;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class DashboardController extends Controller
                 'warna',
                 'ukuran',
             );
-
+            
             $totalMember = Member::selectRaw(implode(',', $selectsMember))
             ->where('jns_member','<>','')
             ->where('userStatus','=','Y')
@@ -72,11 +73,22 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
+            $logLogin = DB::table('member')
+            ->join('tbl_log_login', 'tbl_log_login.userName', '=', 'member.username')
+            ->select('member.nama_depan','member.nama_belakang','member.username','member.terakhir_login', 'tbl_log_login.userName', DB::raw("COUNT(tbl_log_login.userName) as totLogin"))
+            ->where('tbl_log_login.userName','<>','')
+            ->groupBy('tbl_log_login.userName')
+            ->orderBy('totLogin','DESC')
+            ->skip(0)
+            ->take(10)
+            ->get();
+
             return view('panel.pages.dashboard',[
                 'totalMember' => $totalMember,
                 'totalTransaksi' => $totalTransaksi,
                 'produkTerlarisReseller' => $produkTerlarisReseller,
-                'produkTerlarisStockist' => $produkTerlarisStockist
+                'produkTerlarisStockist' => $produkTerlarisStockist,
+                'logLogin' => $logLogin
             ]);
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/')->with('dashboard-error', 'Error, Ulangi proses!');
