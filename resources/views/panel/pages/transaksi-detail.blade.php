@@ -158,7 +158,7 @@
                                     <fieldset class="form-group d-flex">
                                       <button type="submit" class="btn-primary btn white pt-1 pb-1 d-flex align-items-center justify-content-center">Update</button>
                                       <select name="status" class="multiple-select w-100">
-                                        <option value="Dikirim">Dikirim</option>
+                                        <option value="dikirim">Dikirim</option>
                                       </select>
                                       <input type="hidden" name="mode" value="transaksi_dikirim">
                                       <input type="hidden" name="email" value="{{ $detail1->userlog }}">
@@ -172,7 +172,7 @@
                               </div>
                               @endif
                               
-                              @if($detail1->status == 'Dikirim')
+                              @if($detail1->status == 'dikirim')
                               <div class="form-group row mt-2 justify-content-center mb-0">
                                 <div class="col-md-12">
                                   <form action="{{ url('/transaksi-selesai') }}" method="post">

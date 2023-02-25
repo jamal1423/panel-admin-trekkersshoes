@@ -47,7 +47,7 @@
                 <div></div>
               </div>
             </div>
-            <span class="badge badge-pill badge-primary">5</span>
+            <span class="badge badge-pill badge-primary" id="totTransaksi">0</span>
           </div>
         </div>
 
@@ -56,40 +56,26 @@
             <div class="d-flex flex-column p-3 border-bottom rounded-top">
               <h4
                 class="d-flex justify-content-between align-items-center mb-0 rounded-top">
-                <span class="font-size-h5 ">Notifications</span>
-                <a href="#" class="btn btn-sm btn-primary-hover py-1 px-2">
-                  Clear
-                </a>
+                <span class="font-size-h5 ">Notifikasi</span>
               </h4>
             </div>
 
-            <div class="nav nav-hover scrollbar-1 ">
-              <a href="#" class="nav-item border-bottom">
+            <div class="nav nav-hover scrollbar-1" id="listTransaksi">
+              {{-- <a href="#" class="nav-item border-bottom">
                 <div class="nav-link">
                   <div class="nav-icon mr-3">
-                    <i class="fas fa-cog text-primary"></i>
+                    <i class="fas fa-envelope text-primary"></i>
                   </div>
                   <div class="nav-text">
-                    <div class="font-weight-bold">New report has been received</div>
-                    <div class="text-muted">23 hrs ago</div>
+                    <div class="font-weight-bold">Transaksi baru INV/0223/0001</div>
+                    <div class="text-muted">25-02-2023 11:57:45</div>
                   </div>
                 </div>
-              </a>
-              <a href="#" class="nav-item border-bottom">
-                <div class="nav-link">
-                  <div class="nav-icon mr-3">
-                    <i class="fas fa-archive text-secondary"></i>
-                  </div>
-                  <div class="nav-text">
-                    <div class="font-weight-bold">New report has been received</div>
-                    <div class="text-muted">23 hrs ago</div>
-                  </div>
-                </div>
-              </a>
+              </a> --}}
             </div>
             <div class="d-flex flex-column p-3 rounded-top">
               <h4 class="d-flex justify-content-center mb-0  rounded-top">
-                <a href="#" class="font-size-base text-primary">View All</a>
+                <a href="#" class="font-size-base text-primary">Lihat semua</a>
               </h4>
             </div>
           </form>

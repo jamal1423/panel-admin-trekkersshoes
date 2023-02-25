@@ -194,13 +194,38 @@
 				type: "GET",
 				dataType: "JSON",
 				success: function(data) {
-					if(data > 0)
+					let {
+						getTransaksiBaru,
+						dataTransaksiBaru
+					} = data
+					// console.log(dataTransaksiBaru)
+					if(getTransaksiBaru > 0)
 					{
-						$('#transaksiBaru').text(data);
+						$('#transaksiBaru').text(getTransaksiBaru);
+						$('#totTransaksi').text(getTransaksiBaru);
+
+						$("#listTransaksi").empty();
+						for (transaksiBaru of dataTransaksiBaru) {
+							$("#listTransaksi").append(`
+								<a href="#" class="nav-item border-bottom">
+									<div class="nav-link">
+										<div class="nav-icon mr-3">
+											<i class="fas fa-envelope text-primary"></i>
+										</div>
+										<div class="nav-text">
+											<div class="font-weight-bold">Transaksi baru ${transaksiBaru.id_order}</div>
+											<div class="text-muted">${transaksiBaru.tgl_order}</div>
+											<div class="text-muted">${transaksiBaru.status}</div>
+										</div>
+									</div>
+								</a>
+							`);	
+						}
 					}
 					else
 					{
 						$('#transaksiBaru').css('display','none');;
+						$('#totTransaksi').css('display','none');;
 					}
 				}
 			});

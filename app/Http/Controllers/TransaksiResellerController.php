@@ -115,7 +115,25 @@ class TransaksiResellerController extends Controller
             ->where('wip_stok_khusus','=',0)
             ->count('id_order');
 
-            return response()->json($getTransaksiBaru);
+            $dataTransaksiBaru = DB::table('tbl_order_items')
+            ->select('tbl_order_items.tgl_order','tbl_order_items.id_order','tbl_order_items.userlog','tbl_order_items.jns_member',
+            'tbl_order_items.ongkir','tbl_order_items.r_poin','tbl_order_items.r_wallet',
+            'tbl_order_items.status','member.nama_depan','member.nama_belakang')
+            ->join('member','tbl_order_items.userlog','=','member.username')
+            ->where('tbl_order_items.status','<>','Selesai')
+            ->where('tbl_order_items.status','<>','VOID')
+            ->where('tbl_order_items.status','<>','TMP')
+            ->where('tbl_order_items.jns_member','<>','STOCKIST')
+            ->groupBy('tbl_order_items.tgl_order','tbl_order_items.id_order', 'tbl_order_items.userlog','tbl_order_items.jns_member', 'tbl_order_items.ongkir', 'tbl_order_items.r_poin', 'tbl_order_items.r_wallet',
+            'tbl_order_items.status','member.nama_depan','member.nama_belakang')
+            ->orderBy('tbl_order_items.id_order','DESC')
+            ->get();
+
+            return response()->json([
+                'getTransaksiBaru' => $getTransaksiBaru,
+                'dataTransaksiBaru' => $dataTransaksiBaru
+
+            ]);
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/transaksi-baru')->with('transaksi-error', 'Error, silahkan ulangi proses!');
         }
