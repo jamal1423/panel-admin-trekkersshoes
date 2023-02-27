@@ -115,4 +115,23 @@ class MemberController extends Controller
             return redirect('/member-verifikasi')->with('member-error', 'Error, Ulangi proses!');
         }
     }
+
+    public function get_data_member_baru(){
+        try {
+            $countMemberBaru = Member::where('user_baru','=','Y')
+            ->count('id_member');
+
+            $dataMemberBaru = Member::where('user_baru','=','Y')->get();
+
+            return response()->json([
+                'countMemberBaru' => $countMemberBaru,
+                'dataMemberBaru' => $dataMemberBaru
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json([
+                'code' => 401,
+                'message' => 'Terjadi kesalahan, proses tidak dapat dilanjutkan.'
+            ]);
+        }
+    }
 }

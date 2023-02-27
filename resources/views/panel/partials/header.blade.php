@@ -19,7 +19,8 @@
     </div>
     
     <div class="topbar">
-      <div class="topbar-item">
+      @if(Auth::user()->hasRole('Administrator') || Auth::user()->hasRole('WebAdmin'))
+      {{-- <div class="topbar-item">
         <div class="btn btn-icon btn-clean  mr-1" id="tc_quick_panel_toggle">
           <span class="svg-icon svg-icon-xl svg-icon-primary">
             <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-people"
@@ -30,17 +31,48 @@
           </span>
           <span class="badge badge-pill badge-secondary">5</span>
         </div>
+      </div> --}}
+
+      <div class="dropdown">
+        <div class="topbar-item" data-toggle="dropdown" data-display="static">
+          <div class="btn btn-icon btn-clean  mr-1" id="tc_quick_panel_toggle">
+            <span class="svg-icon svg-icon-xl svg-icon-primary">
+              <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-people"
+                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1h7.956a.274.274 0 0 0 .014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 0 0 .022.004zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+              </svg>
+            </span>
+            <span class="badge badge-pill badge-secondary" id="totalMember">0</span>
+          </div>
+        </div>
+
+        <div class="dropdown-menu p-0 m-0 dropdown-menu-right w-300px">
+          <form>
+            <div class="d-flex flex-column p-3 border-bottom rounded-top">
+              <h4
+                class="d-flex justify-content-between align-items-center mb-0 rounded-top">
+                <span class="font-size-h5 ">Notifikasi</span>
+              </h4>
+            </div>
+
+            <div class="nav nav-hover scrollbar-1" id="listMember"></div>
+            <div class="d-flex flex-column p-3 rounded-top">
+              <h4 class="d-flex justify-content-center mb-0  rounded-top">
+                <a href="#" class="font-size-base text-primary">Lihat semua member</a>
+              </h4>
+            </div>
+          </form>
+        </div>
       </div>
       
       <div class="dropdown">
         <div class="topbar-item" data-toggle="dropdown" data-display="static">
           <div class="btn btn-icon btn-clean btn-dropdown mr-1">
             <div class="svg-icon svg-icon-xl svg-icon-primary" title="Notification">
-              <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-bell"
-                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z" />
-                <path fill-rule="evenodd"
-                  d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+              <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-bell" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z"/>
+                <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
               </svg>
               <div class="lds-ripple">
                 <div></div>
@@ -60,27 +92,16 @@
               </h4>
             </div>
 
-            <div class="nav nav-hover scrollbar-1" id="listTransaksi">
-              {{-- <a href="#" class="nav-item border-bottom">
-                <div class="nav-link">
-                  <div class="nav-icon mr-3">
-                    <i class="fas fa-envelope text-primary"></i>
-                  </div>
-                  <div class="nav-text">
-                    <div class="font-weight-bold">Transaksi baru INV/0223/0001</div>
-                    <div class="text-muted">25-02-2023 11:57:45</div>
-                  </div>
-                </div>
-              </a> --}}
-            </div>
+            <div class="nav nav-hover scrollbar-1" id="listTransaksi"></div>
             <div class="d-flex flex-column p-3 rounded-top">
               <h4 class="d-flex justify-content-center mb-0  rounded-top">
-                <a href="#" class="font-size-base text-primary">Lihat semua</a>
+                <a href="#" class="font-size-base text-primary">Lihat semua transaksi</a>
               </h4>
             </div>
           </form>
         </div>
       </div>
+      @endif
       
       <div class="dropdown">
         <div class="topbar-item" data-toggle="dropdown" data-display="static">
@@ -127,7 +148,6 @@
             Logout
           </a>
         </div>
-
       </div>
     </div>
   </div>

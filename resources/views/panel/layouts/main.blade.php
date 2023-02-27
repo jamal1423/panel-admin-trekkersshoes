@@ -224,8 +224,71 @@
 					}
 					else
 					{
-						$('#transaksiBaru').css('display','none');;
-						$('#totTransaksi').css('display','none');;
+						// $('#transaksiBaru').css('display','none');
+						$('#totTransaksi').css('display','none');
+						$("#listTransaksi").append(`
+							<a href="#" class="nav-item border-bottom">
+								<div class="nav-link">
+									<div class="nav-icon mr-3">
+										<i class="fas fa-envelope text-primary"></i>
+									</div>
+									<div class="nav-text">
+										<div class="font-weight-bold">Belum ada transaksi</div>
+									</div>
+								</div>
+							</a>
+						`);
+					}
+				}
+			});
+      
+			$.ajax({
+				url: "/get-data-member-baru",
+				type: "GET",
+				dataType: "JSON",
+				success: function(data) {
+					let {
+						countMemberBaru,
+						dataMemberBaru
+					} = data
+					// console.log(dataMemberBaru)
+					if(countMemberBaru > 0)
+					{
+						$('#totalMember').text(countMemberBaru);
+
+						$("#listMember").empty();
+						for (memberBaru of dataMemberBaru) {
+							$("#listMember").append(`
+								<a href="#" class="nav-item border-bottom">
+									<div class="nav-link">
+										<div class="nav-icon mr-3">
+											<i class="fas fa-user text-primary"></i>
+										</div>
+										<div class="nav-text">
+											<div class="font-weight-bold">${memberBaru.nama_depan+' '+memberBaru.nama_belakang}</div>
+											<div class="text-muted">${memberBaru.username}</div>
+											<div class="text-muted">${memberBaru.tgl_daftar}</div>
+										</div>
+									</div>
+								</a>
+							`);	
+						}
+					}
+					else
+					{
+						// $('#totalMember').css('display','none');
+						$("#listMember").append(`
+							<a href="#" class="nav-item border-bottom">
+								<div class="nav-link">
+									<div class="nav-icon mr-3">
+										<i class="fas fa-user text-primary"></i>
+									</div>
+									<div class="nav-text">
+										<div class="font-weight-bold">Belum ada member baru</div>
+									</div>
+								</div>
+							</a>
+						`);
 					}
 				}
 			});

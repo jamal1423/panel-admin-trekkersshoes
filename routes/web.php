@@ -187,6 +187,7 @@ Route::group(['middleware' => ['role:Administrator|WebAdmin']], function () {
   Route::patch('/member-trekkers/edit', [MemberController::class, 'member_trekkers_edit']);
   Route::get('/get-data-member/{id_member}', [MemberController::class, 'get_data_member']);
   Route::get('/get-data-member-verifikasi/{id_member}', [MemberController::class, 'get_data_member_verifikasi']);
+  Route::get('/get-data-member-baru', [MemberController::class, 'get_data_member_baru']);
 
   // SLIDER
   Route::get('/setting-slider', [SliderController::class, 'data_slider']);
