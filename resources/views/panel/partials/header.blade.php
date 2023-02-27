@@ -59,7 +59,7 @@
             <div class="nav nav-hover scrollbar-1" id="listMember"></div>
             <div class="d-flex flex-column p-3 rounded-top">
               <h4 class="d-flex justify-content-center mb-0  rounded-top">
-                <a href="#" class="font-size-base text-primary">Lihat semua member</a>
+                <a href="{{ url('/member-trekkers') }}" class="font-size-base text-primary">Lihat semua member</a>
               </h4>
             </div>
           </form>
@@ -95,7 +95,7 @@
             <div class="nav nav-hover scrollbar-1" id="listTransaksi"></div>
             <div class="d-flex flex-column p-3 rounded-top">
               <h4 class="d-flex justify-content-center mb-0  rounded-top">
-                <a href="#" class="font-size-base text-primary">Lihat semua transaksi</a>
+                <a href="{{ url('/transaksi-baru') }}" class="font-size-base text-primary">Lihat semua transaksi</a>
               </h4>
             </div>
           </form>
