@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e){
         if ($e instanceof  UnauthorizedException) {
-            return response()->view("panel.errors.403", [
+            return response()->view("errors.403", [
                 "exception" => $e
             ], 403);
         }
